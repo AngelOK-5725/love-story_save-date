@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Love Story · Премьера</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+
+<style>
+/* ─── RESET & VARS ───────────────────────────────────────── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+
+:root{
+    --dark:  #3A2119;
+    --blue:  #79A3C3;
+    --light: #D2E2EC;
+    --beige: #EBCDB7;
+    --brown: #957662;
+    --cream: #F5EFE8;
+    --black: #0d0a07;
+}
+
+html{ background:#110907; scroll-behavior:smooth; }
+
+body{
+    font-family:'Jost',sans-serif;
+    background:var(--dark);
+    color:var(--cream);
+    overflow-x:hidden;
+    max-width:480px;
+    margin:0 auto;
+}
+
+/* ─── FILM эффект ─────────────────────────────────────────── */
+#grain{
+    position:fixed; inset:0; width:100%; height:100%;
+    pointer-events:none; z-index:9999; opacity:.055;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    animation:grain 1.4s steps(6) infinite;
+}
+@keyframes grain{
+    0%  {transform:translate(0,0)}
+    16% {transform:translate(-3%,-2%)}
+    33% {transform:translate(2%, 3%)}
+    50% {transform:translate(-2%, 2%)}
+    66% {transform:translate(3%,-3%)}
+    83% {transform:translate(-1%, 1%)}
+    100%{transform:translate(0,0)}
+}
+
+/* ─── SCROLL REVEAL ──────────────────────────────────────── */
+.reveal{
+    opacity:0;
+    transform:translateY(38px);
+    transition: opacity .95s cubic-bezier(.16,1,.3,1),
+                transform .95s cubic-bezier(.16,1,.3,1);
+}
+.reveal.visible{ opacity:1; transform:translateY(0); }
+.d1{transition-delay:.08s} .d2{transition-delay:.22s}
+.d3{transition-delay:.40s} .d4{transition-delay:.58s}
+.d5{transition-delay:.78s}
+
+/* ─────────────────────────────────────────────────────────
+    --------SECTION 1 · INTRO
+───────────────────────────────────────────────────────── */
+.intro{
+    min-height:100dvh;
+    background:var(--dark);
+    display:flex; flex-direction:column;
+    align-items:center; justify-content:center;
+    position:relative; overflow:hidden;
+    padding:64px 44px;
+    text-align:center;
+}
+
+.intro-glow{
+    position:absolute; top:-60px; left:50%; transform:translateX(-50%);
+    width:320px; height:320px;
+    background:radial-gradient(circle,rgba(121,163,195,.18) 0%,transparent 68%);
+    pointer-events:none; animation:pulse 4s ease-in-out infinite;
+}
+@keyframes pulse{0%,100%{opacity:.7}50%{opacity:1}}
+
+.intro-vignette{
+    position:absolute; inset:0;
+    background:radial-gradient(ellipse at center, transparent 38%, rgba(0,0,0,.65) 100%);
+    pointer-events:none;
+}
+
+.strip{
+    position:absolute; top:0; bottom:0; width:24px;
+    display:flex; flex-direction:column;
+    justify-content:space-evenly; padding:6px 4px;
+}
+.strip.left{left:0} .strip.right{right:0}
+.hole{
+    width:16px; height:12px;
+    background:rgba(255,255,255,.045);
+    border-radius:2px; flex-shrink:0;
+}
+
+.intro-pre{
+    font-size:9px; font-weight:200; letter-spacing:6px;
+    text-transform:uppercase; color:var(--brown);
+    margin-bottom:38px;
+}
+.intro-title{
+    font-family:'Cormorant Garamond',serif;
+    font-size:62px; font-weight:300; line-height:.92;
+    letter-spacing:1px; color:var(--cream);
+    animation:flicker 9s ease-in-out infinite;
+}
+.intro-title em{
+    font-style:italic; color:var(--beige); display:block;
+}
+@keyframes flicker{
+    0%,100%{opacity:1}
+    84%{opacity:1} 85%{opacity:.82} 87%{opacity:1}
+    91%{opacity:.9} 92%{opacity:1}
+}
+.intro-rule{
+    width:54px; height:1px; background:var(--brown);
+    opacity:.5; margin:28px auto;
+}
+.intro-names{
+    font-family:'Cormorant Garamond',serif;
+    font-style:italic; font-size:26px; font-weight:300;
+    color:var(--beige); letter-spacing:1px;
+}
+.intro-date{
+    margin-top:38px; font-size:10px; font-weight:200;
+    letter-spacing:5px; text-transform:uppercase; color:var(--blue);
+}
+.intro-tag{
+    font-family:'Cormorant Garamond',serif; font-style:italic;
+    font-size:14px; color:rgba(235,205,183,.42);
+    margin-top:10px; letter-spacing:.3px;
+}
+
+.scroll-hint{
+    position:absolute; bottom:30px; left:50%; transform:translateX(-50%);
+    display:flex; flex-direction:column; align-items:center; gap:7px;
+    animation:bob 2.6s ease-in-out infinite;
+}
+.scroll-hint span{
+    font-size:8px; font-weight:200; letter-spacing:4px;
+    text-transform:uppercase; color:var(--brown);
+}
+.hint-line{
+    width:1px; height:38px;
+    background:linear-gradient(to bottom,var(--brown),transparent);
+}
+@keyframes bob{
+    0%,100%{transform:translateX(-50%) translateY(0)}
+    50%    {transform:translateX(-50%) translateY(9px)}
+}
+
+/* ─────────────────────────────────────────────────────────
+    --------SECTION 2 · STORY
+───────────────────────────────────────────────────────── */
+.story{
+    background:linear-gradient(180deg,var(--dark) 0%,#14253a 52%,#1f3d57 100%);
+    padding:96px 36px;
+}
+.sec-tag{
+    display:block; font-size:9px; font-weight:200;
+    letter-spacing:5px; text-transform:uppercase;
+    color:var(--brown); margin-bottom:52px;
+}
+.story-line{
+    font-family:'Cormorant Garamond',serif; font-style:italic;
+    font-size:22px; line-height:1.65; color:var(--cream);
+    border-left:1px solid rgba(149,118,98,.38); padding-left:22px;
+    margin-bottom:28px;
+}
+.story-line.hero{ color:var(--beige); font-size:27px; }
+.story-coda{
+    margin-top:52px; font-size:9px; font-weight:200;
+    letter-spacing:3px; text-transform:uppercase;
+    color:rgba(255,255,255,.22);
+}
+
+/* ─────────────────────────────────────────────────────────
+    --------SECTION 3 · HEROES
+───────────────────────────────────────────────────────── */
+.heroes{ background:var(--light); padding:96px 24px; }
+.heroes .sec-tag{ color:var(--brown); text-align:center; }
+
+.hero-grid{ display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+.hero-card{
+    background:rgba(255,255,255,.48);
+    border:1px solid rgba(149,118,98,.22); border-radius:3px;
+    padding:34px 14px 26px; text-align:center;
+    backdrop-filter:blur(10px);
+}
+.hero-portrait{
+    width:66px; height:66px; border-radius:50%;
+    border:1px solid rgba(149,118,98,.45);
+    margin:0 auto 18px;
+    display:flex; align-items:center; justify-content:center;
+    background:rgba(149,118,98,.09);
+}
+.hero-portrait svg{ width:30px; height:30px; }
+.hero-name{
+    font-family:'Cormorant Garamond',serif;
+    font-size:22px; font-weight:600; color:var(--dark); margin-bottom:5px;
+}
+.hero-role{
+    font-size:9px; font-weight:300; letter-spacing:3px;
+    text-transform:uppercase; color:var(--brown);
+}
+.hero-quote{
+    text-align:center; margin-top:44px;
+    font-family:'Cormorant Garamond',serif;
+    font-style:italic; font-size:19px; color:var(--dark); opacity:.62;
+}
+
+/* ─────────────────────────────────────────────────────────
+    --------SECTION 4 · TICKET
+───────────────────────────────────────────────────────── */
+.ticket-section{ background:var(--beige); padding:96px 24px; }
+.ticket-section .sec-tag{ color:var(--brown); text-align:center; }
+
+.ticket{
+    background:var(--cream);
+    border:1px solid rgba(149,118,98,.32); border-radius:4px;
+    overflow:hidden;
+    box-shadow:0 24px 64px rgba(0,0,0,.12);
+}
+.ticket-head{
+    background:var(--dark); padding:32px 28px 26px;
+    position:relative; overflow:hidden;
+}
+.ticket-head::after{
+    content:''; position:absolute; top:-50px; right:-50px;
+    width:180px; height:180px;
+    background:radial-gradient(circle,rgba(121,163,195,.12) 0%,transparent 65%);
+}
+.ticket-event-sub{
+    font-size:9px; font-weight:200; letter-spacing:5px;
+    text-transform:uppercase; color:var(--blue); margin-bottom:8px;
+}
+.ticket-event-name{
+    font-family:'Cormorant Garamond',serif;
+    font-size:32px; font-weight:300; color:var(--cream); letter-spacing:.5px;
+}
+.tear{
+    position:relative; border-top:1px dashed rgba(149,118,98,.42);
+}
+.tear::before,.tear::after{
+    content:''; position:absolute; top:-14px;
+    width:28px; height:28px;
+    background:var(--beige); border-radius:50%;
+}
+.tear::before{left:-14px} .tear::after{right:-14px}
+
+.ticket-body{
+    padding:26px 28px;
+    display:grid; grid-template-columns:1fr 1fr; gap:20px 18px;
+}
+.ticket-field label{
+    display:block; font-size:8px; font-weight:300;
+    letter-spacing:3px; text-transform:uppercase;
+    color:var(--brown); margin-bottom:5px;
+}
+.ticket-field p{
+    font-family:'Cormorant Garamond',serif;
+    font-size:19px; color:var(--dark);
+}
+.ticket-field.full{ grid-column:span 2; }
+
+.ticket-barcode{
+    padding:18px 28px; border-top:1px dashed rgba(149,118,98,.3);
+    display:flex; justify-content:center; gap:2px; align-items:flex-end;
+}
+.bar{ background:var(--dark); width:2px; opacity:.13; }
+
+/* ─────────────────────────────────────────────────────────
+    SECTION 5 · MAP
+───────────────────────────────────────────────────────── */
+.map-section{ background:var(--dark); padding:96px 0 0; }
+.map-header{ padding:0 24px; margin-bottom:30px; }
+.map-tabs{
+    display:flex; border-bottom:1px solid rgba(255,255,255,.1);
+}
+.map-tab{
+    font-size:10px; font-weight:300; letter-spacing:3px;
+    text-transform:uppercase; color:rgba(255,255,255,.32);
+    padding:13px 22px 11px; background:none; border:none;
+    border-bottom:2px solid transparent; margin-bottom:-1px;
+    cursor:pointer; transition:all .3s ease;
+}
+.map-tab.active{ color:var(--beige); border-bottom-color:var(--brown); }
+.map-frame{
+    display:none; width:100%; height:320px; border:none;
+}
+.map-frame.active{ display:block; }
+.map-address{
+    padding:20px 24px 58px;
+    font-family:'Cormorant Garamond',serif; font-style:italic;
+    font-size:16px; color:rgba(235,205,183,.55);
+}
+
+/* ─────────────────────────────────────────────────────────
+    SECTION 6 · FORM
+───────────────────────────────────────────────────────── */
+.form-section{
+    background:linear-gradient(180deg,var(--dark) 0%,#13100e 100%);
+    padding:96px 28px;
+}
+.form-section .sec-tag{ text-align:left; }
+.form-title{
+    font-family:'Cormorant Garamond',serif;
+    font-size:36px; font-weight:300; line-height:1.15;
+    color:var(--cream); margin-bottom:8px;
+}
+.form-subtitle{
+    font-size:13px; font-weight:200;
+    color:rgba(255,255,255,.32); margin-bottom:52px; line-height:1.55;
+}
+.form-group{ margin-bottom:32px; }
+.form-group label{
+    display:block; font-size:9px; font-weight:300;
+    letter-spacing:3px; text-transform:uppercase;
+    color:var(--brown); margin-bottom:12px;
+}
+.form-group input,
+.form-group textarea{
+    width:100%; background:transparent; border:none;
+    border-bottom:1px solid rgba(149,118,98,.32);
+    padding:12px 0;
+    font-family:'Cormorant Garamond',serif;
+    font-size:20px; color:var(--cream);
+    outline:none; transition:border-color .3s;
+    -webkit-appearance:none; border-radius:0;
+}
+.form-group input:focus,
+.form-group textarea:focus{ border-bottom-color:var(--blue); }
+.form-group input::placeholder,
+.form-group textarea::placeholder{ color:rgba(255,255,255,.17); }
+.form-group textarea{ resize:none; height:70px; }
+
+.guest-row{ display:flex; gap:10px; flex-wrap:wrap; margin-top:4px; }
+.g-btn{
+    width:46px; height:46px;
+    border:1px solid rgba(149,118,98,.32); background:transparent;
+    color:rgba(255,255,255,.42);
+    font-family:'Cormorant Garamond',serif; font-size:21px;
+    cursor:pointer; border-radius:2px; transition:all .22s ease;
+}
+.g-btn.active{
+    background:var(--brown); border-color:var(--brown); color:var(--cream);
+}
+
+.submit-btn{
+    width:100%; padding:20px 24px;
+    background:var(--beige); border:none;
+    color:var(--dark);
+    font-family:'Jost',sans-serif; font-size:11px;
+    font-weight:400; letter-spacing:4px; text-transform:uppercase;
+    cursor:pointer; margin-top:44px; border-radius:1px;
+    transition:background .35s ease, color .35s ease;
+}
+.submit-btn:hover{ background:var(--brown); color:var(--cream); }
+.submit-btn:disabled{ opacity:.5; cursor:not-allowed; }
+
+.thank-you{
+    display:none; text-align:center; padding:72px 0;
+    animation:fadeUp 1.1s cubic-bezier(.16,1,.3,1) forwards;
+}
+@keyframes fadeUp{
+    from{opacity:0;transform:translateY(28px)}
+    to  {opacity:1;transform:translateY(0)}
+}
+.ty-icon{ font-size:46px; margin-bottom:22px; display:block; }
+.ty-title{
+    font-family:'Cormorant Garamond',serif; font-style:italic;
+    font-size:30px; color:var(--beige); margin-bottom:14px;
+}
+.ty-text{
+    font-size:14px; font-weight:200;
+    color:rgba(255,255,255,.42); line-height:1.75;
+}
+
+/* ─────────────────────────────────────────────────────────
+    SECTION 7 · OUTRO
+───────────────────────────────────────────────────────── */
+.outro{
+    background:var(--black); padding:96px 32px;
+    text-align:center; position:relative; overflow:hidden;
+}
+.outro-glow{
+    position:absolute; bottom:-30px; left:50%; transform:translateX(-50%);
+    width:240px; height:180px;
+    background:radial-gradient(circle,rgba(121,163,195,.07) 0%,transparent 70%);
+    pointer-events:none;
+}
+.outro-quote{
+    font-family:'Cormorant Garamond',serif; font-style:italic;
+    font-size:22px; font-weight:300;
+    color:rgba(235,205,183,.52); line-height:1.58;
+    max-width:290px; margin:0 auto 46px;
+}
+.outro-rule{
+    width:38px; height:1px; background:var(--brown);
+    opacity:.38; margin:0 auto 32px;
+}
+.outro-credit{
+    font-size:9px; font-weight:200; letter-spacing:5px;
+    text-transform:uppercase; color:rgba(149,118,98,.38);
+}
+</style>
+</head>
+<body>
+
+<!-- GRAIN -->
+<div id="grain" aria-hidden="true"></div>
+
+<!-- ══════════════════════════════════════
+    SECTION 1 · INTRO
+══════════════════════════════════════ -->
+<section class="intro">
+    <div class="intro-glow"></div>
+    <div class="intro-vignette"></div>
+    <div class="strip left"  id="stripL"></div>
+    <div class="strip right" id="stripR"></div>
+    
+    <p class="intro-pre reveal visible">Мировая Премьера</p>
+    
+    <h1 class="intro-title reveal visible d1">
+        Love
+        <em>Story</em>
+    </h1>
+    
+    <div class="intro-rule reveal visible d2"></div>
+    
+    <!-- ✏️  ИМЕНА -->
+    <p class="intro-names reveal visible d2">Мия &amp; Ильяс</p>
+    
+    <!-- ✏️  ДАТА -->
+    <p class="intro-date reveal visible d3">14 Февраля · 2026</p>
+    <p class="intro-tag  reveal visible d4">«История, которую стоит увидеть вживую»</p>
+    
+    <div class="scroll-hint" aria-hidden="true">
+        <span>далее</span>
+        <div class="hint-line"></div>
+    </div>
+</section>
+
+<!-- ══════════════════════════════════════
+    SECTION 2 · STORY
+══════════════════════════════════════ -->
+<section class="story">
+    <span class="sec-tag reveal">Трейлер · Два эпизода</span>
+    
+    <!-- ✏️ ВАША ИСТОРИЯ — замените текст -->
+    <p class="story-line reveal d1">
+        Однажды двое оказались<br>в одном кадре…
+    </p>
+    <p class="story-line reveal d2">
+        Разные сцены, разные роли —<br>но один сюжет на двоих.
+    </p>
+    <p class="story-line hero reveal d3">
+        И вот — финальная сцена<br>перед новой историей.
+    </p>
+    
+    <p class="story-coda reveal d4">↓ Войдите в этот кадр</p>
+</section>
+
+<!-- ══════════════════════════════════════
+    SECTION 3 · HEROES
+══════════════════════════════════════ -->
+<section class="heroes">
+    <span class="sec-tag reveal">В главных ролях</span>
+    
+    <div class="hero-grid">
+        <div class="hero-card reveal d1">
+        <div class="hero-portrait">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#957662" stroke-width="1.2">
+            <circle cx="12" cy="8" r="4"/>
+            <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+            </svg>
+        </div>
+        <!-- ✏️ ИМЯ 1 -->
+        <p class="hero-name">Мия</p>
+        <p class="hero-role">Главная героиня</p>
+        </div>
+    
+        <div class="hero-card reveal d2">
+        <div class="hero-portrait">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#957662" stroke-width="1.2">
+            <circle cx="12" cy="8" r="4"/>
+            <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+            </svg>
+        </div>
+        <!-- ✏️ ИМЯ 2 -->
+        <p class="hero-name">Ильяс</p>
+        <p class="hero-role">Главный герой</p>
+        </div>
+    </div>
+    
+    <p class="hero-quote reveal d3">«История, написанная на двоих»</p>
+</section>
+
+<!-- ══════════════════════════════════════
+    SECTION 4 · TICKET
+══════════════════════════════════════ -->
+<section class="ticket-section">
+    <span class="sec-tag reveal">Ваш билет</span>
+    
+    <div class="ticket reveal d1">
+        <div class="ticket-head">
+        <p class="ticket-event-sub">Специальный показ · Только для приглашённых</p>
+        <p class="ticket-event-name">Love Story</p>
+        </div>
+    
+        <div class="tear"></div>
+    
+        <div class="ticket-body">
+        <!-- ✏️ ДЕТАЛИ СОБЫТИЯ -->
+        <div class="ticket-field">
+            <label>Дата</label>
+            <p>14 Февраля</p>
+        </div>
+        <div class="ticket-field">
+            <label>Начало</label>
+            <p>19:00</p>
+        </div>
+        <div class="ticket-field full">
+            <label>Место</label>
+            <p>Ваш адрес здесь</p>
+        </div>
+        <div class="ticket-field full">
+            <label>Дресс-код</label>
+            <p>Вечерний наряд</p>
+        </div>
+        </div>
+    
+        <div class="ticket-barcode" id="barcode" aria-hidden="true"></div>
+    </div>
+</section>
+
+<!-- ══════════════════════════════════════
+    SECTION 5 · MAP
+══════════════════════════════════════ -->
+<section class="map-section">
+    <div class="map-header">
+        <span class="sec-tag reveal" style="text-align:left;margin-bottom:28px;">Найти нас</span>
+        <div class="map-tabs reveal d1">
+        <button class="map-tab active" onclick="switchMap('google')">Google Maps</button>
+        <button class="map-tab"        onclick="switchMap('2gis')"  >2GIS</button>
+        </div>
+    </div>
+    
+    <!--
+        ✏️ GOOGLE MAPS:
+        Откройте maps.google.com → найдите место →
+        Нажмите «Поделиться» → «Встроить карту» → скопируйте src из iframe
+    -->
+    <iframe
+        id="map-google"
+        class="map-frame active"
+        src="https://maps.google.com/maps?q=43.257,76.929&z=16&output=embed"
+        loading="lazy"
+        allowfullscreen
+        referrerpolicy="no-referrer-when-downgrade"
+        title="Google Maps">
+    </iframe>
+    
+    <!--
+        ✏️ 2GIS:
+        Откройте 2gis.kz → найдите место → Поделиться →
+        вставьте embed-ссылку в src ниже
+    -->
+    <iframe
+        id="map-2gis"
+        class="map-frame"
+        src="https://widgets.2gis.com/widget?type=firmsonmap&options=%7B%22pos%22%3A%7B%22lat%22%3A43.257%2C%22lon%22%3A76.929%2C%22zoom%22%3A16%7D%7D"
+        loading="lazy"
+        allowfullscreen
+        title="2GIS">
+    </iframe>
+
+    <!--  АДРЕС -->
+    <p class="map-address reveal">📍 Ваш адрес, Алматы</p>
+</section>
+
+<!-- ══════════════════════════════════════
+    SECTION 6 · BOOKING FORM
+══════════════════════════════════════ -->
+<section class="form-section" id="booking">
+    <span class="sec-tag reveal">Бронирование</span>
+    <h2 class="form-title   reveal d1">Занять место<br>на премьере</h2>
+    <p  class="form-subtitle reveal d2">Заполните форму — и ваш билет в эту историю уже готов</p>
+    
+    <div id="formWrap">
+        <div class="form-group reveal d1">
+        <label>Ваше имя</label>
+        <input type="text" id="iName" placeholder="Как вас представить?" autocomplete="name">
+        </div>
+    
+        <div class="form-group reveal d2">
+        <label>Количество гостей</label>
+        <div class="guest-row">
+            <button class="g-btn" onclick="pickGuests(1,this)">1</button>
+            <button class="g-btn" onclick="pickGuests(2,this)">2</button>
+            <button class="g-btn" onclick="pickGuests(3,this)">3</button>
+            <button class="g-btn" onclick="pickGuests(4,this)">4</button>
+            <button class="g-btn" onclick="pickGuests(5,this)">5+</button>
+        </div>
+        </div>
+    
+        <div class="form-group reveal d3">
+        <label>Telegram или телефон</label>
+        <input type="text" id="iContact" placeholder="@username или +7…" autocomplete="tel">
+        </div>
+    
+        <div class="form-group reveal d4">
+        <label>Пожелание (необязательно)</label>
+        <textarea id="iNote" placeholder="Важные детали для нас…"></textarea>
+        </div>
+    
+        <button class="submit-btn reveal d5" id="subBtn" onclick="doSubmit()">
+        Занять место в истории
+        </button>
+    </div>
+
+    <div class="thank-you" id="thankYou">
+        <span class="ty-icon">🎬</span>
+        <h3 class="ty-title">Ваш билет забронирован</h3>
+        <p class="ty-text">
+        Мы уже ждём встречи с вами.<br>
+        До скорого ✨
+        </p>
+    </div>
+</section>
+
+<!-- ══════════════════════════════════════
+    SECTION 7 · OUTRO
+══════════════════════════════════════ -->
+<section class="outro">
+    <div class="outro-glow" aria-hidden="true"></div>
+    <p  class="outro-quote  reveal">«Конец трейлера.<br>Мы хотим увидеть вас в кадре этой истории.»</p>
+    <div class="outro-rule  reveal d1"></div>
+    <p  class="outro-credit reveal d2">Love Story · Алматы · 2026</p>
+</section>
+
+<!-- ══════════════════════════════════════
+    JAVASCRIPT
+══════════════════════════════════════ -->
+<script>
+/* ════════════════════════════════════════════════
+    ⚙️  НАСТРОЙТЕ TELEGRAM:
+    1. Напишите @BotFather → /newbot → получите токен
+    2. Добавьте бота в чат/канал
+    3. Узнайте chat_id через @userinfobot
+   ════════════════════════════════════════════════ */
+const TG_TOKEN   = 'ВАШ_BOT_TOKEN';   // пример: 7123456789:AAHxxxxxx
+const TG_CHAT_ID = 'ВАШ_CHAT_ID';     // пример: -1001234567890
+
+/* ─── Film strips ──────────────────────────── */
+(function buildStrips() {
+    const count = Math.ceil(window.innerHeight / 22);
+    ['stripL','stripR'].forEach(id => {
+        const el = document.getElementById(id);
+        for (let i = 0; i < count; i++) {
+        const h = document.createElement('div');
+        h.className = 'hole';
+        el.appendChild(h);
+        }
+    });
+})();
+
+/* ─── Barcode decoration ───────────────────── */
+(function buildBarcode() {
+    const bc = document.getElementById('barcode');
+    const hs = [28,16,38,12,42,22,30,14,36,24,32,18,40,20,28,
+                12,38,22,30,16,42,24,18,34,14,30,38,20,42,16];
+    hs.forEach(h => {
+        const bar = document.createElement('div');
+        bar.className = 'bar';
+        bar.style.height = h + 'px';
+        bc.appendChild(bar);
+    });
+})();
+
+/* ─── Scroll reveal ────────────────────────── */
+const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+        if (e.isIntersecting) e.target.classList.add('visible');
+    });
+}, { threshold: 0.12 });
+
+document.querySelectorAll('.reveal:not(.visible)')
+    .forEach(el => obs.observe(el));
+
+/* ─── Map tabs ─────────────────────────────── */
+function switchMap(type) {
+    document.querySelectorAll('.map-tab')
+        .forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.map-frame')
+        .forEach(f => f.classList.remove('active'));
+    document.querySelector(`.map-tab[onclick="switchMap('${type}')"]`)
+        .classList.add('active');
+    document.getElementById('map-' + type).classList.add('active');
+}
+
+/* ─── Guest count ──────────────────────────── */
+let selectedGuests = 0;
+function pickGuests(n, btn) {
+    document.querySelectorAll('.g-btn')
+        .forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    selectedGuests = n;
+}
+
+/* ─── Form submit ──────────────────────────── */
+async function doSubmit() {
+    const name    = document.getElementById('iName').value.trim();
+    const contact = document.getElementById('iContact').value.trim();
+    const note    = document.getElementById('iNote').value.trim();
+
+    if (!name || !selectedGuests || !contact) {
+        alert('Пожалуйста, укажите имя, количество гостей и контакт ✨');
+        return;
+    }
+
+    const btn = document.getElementById('subBtn');
+    btn.disabled = true;
+    btn.textContent = 'Отправляем…';
+
+    /* Режим тестирования — если токен не заполнен */
+    if (TG_TOKEN === 'ВАШ_BOT_TOKEN') {
+        setTimeout(showThankYou, 800);
+        return;
+    }
+
+    const text = [
+        '🎬 <b>Новая бронь на премьеру</b>',
+        '',
+        `👤 <b>Имя:</b> ${name}`,
+        `👥 <b>Гостей:</b> ${selectedGuests}`,
+        `📱 <b>Контакт:</b> ${contact}`,
+        note ? `💬 <b>Пожелание:</b> ${note}` : null
+    ].filter(Boolean).join('\n');
+
+    try {
+        const res = await fetch(
+        `https://api.telegram.org/bot${TG_TOKEN}/sendMessage`,
+        {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+            chat_id: TG_CHAT_ID,
+            text,
+            parse_mode: 'HTML'
+            })
+        }
+        );
+        if (!res.ok) throw new Error('Telegram error');
+        showThankYou();
+    } catch {
+        btn.disabled = false;
+        btn.textContent = 'Занять место в истории';
+        alert('Что-то пошло не так. Попробуйте ещё раз или напишите нам напрямую.');
+    }
+}
+
+function showThankYou() {
+    document.getElementById('formWrap').style.display = 'none';
+    document.getElementById('thankYou').style.display = 'block';
+}
+</script>
+</body>
+</html>
