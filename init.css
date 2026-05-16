@@ -25,7 +25,7 @@ body{
 }
 
 .variable-box{
-    margin: 0 20px;
+    margin: 0 16px;
     
 }
 
@@ -74,7 +74,7 @@ h1{
     display: flex;
     flex-direction: row;
     justify-content: center;
-    gap: 28px;
+    gap: 10px;
     /* margin: 5px 0; */
     /* padding: 5px 0; */
 
@@ -219,7 +219,7 @@ h1{
     display: flex;
     flex-direction: row;
     justify-content: center;
-    gap: 28px;
+    gap: 10px;
     /* margin: 5px 0; */
     /* padding: 5px 0; */
 
@@ -245,7 +245,7 @@ h1{
     font-family: var(--headline), normal;
     /* font-weight: bold; */
     text-transform: uppercase;
-    font-size: 37px;
+    font-size: 35px;
     line-height: 40px;
 }
 
@@ -354,9 +354,18 @@ h1{
 
 /* -------------------------------------------- */
 /* ----------Адаптив------ */
-@media (max-width: 768px) {
-    .variable-box{
+/* 📲 планшет */
+@media (min-width: 480px) {
+    .variable-box {
+        margin: 0 20px;
+    }
+}
+
+
+
+/* 💻 большие экраны */
+@media (min-width: 768px) {
+    .variable-box {
         margin: 0 50px;
     }
-
 }
