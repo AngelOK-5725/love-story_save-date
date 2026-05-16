@@ -145,6 +145,11 @@ h1{
     opacity: 0;
     transform: translateX(-120%);
 }
+.gallery-mia .i,
+.gallery-mia .i-last{
+    left: 0;
+}
+
 /* 1 фото */
 .gallery-mia img:nth-child(1){
     animation: slidePhoto 6s ease forwards;
@@ -245,7 +250,7 @@ h1{
     font-family: var(--headline), normal;
     /* font-weight: bold; */
     text-transform: uppercase;
-    font-size: 35px;
+    font-size: 38px;
     line-height: 40px;
 }
 
@@ -284,23 +289,24 @@ h1{
     opacity: 0;
     transform: translateX(120%);
 }
+.gallery-ilias .a,
+.gallery-ilias .a-last{
+    right: 0;
+}
 
 /* 1 фото */
-
 .gallery-ilias img:nth-child(1){
     animation: slidePhotoRight 6s ease forwards;
     animation-delay: 21s;
 }
 
 /* 2 фото */
-
 .gallery-ilias img:nth-child(2){
     animation: slidePhotoRight 6s ease forwards;
     animation-delay: 27s;
 }
 
 /* 3 фото */
-
 .gallery-ilias img:nth-child(3){
     animation: finalPhotoRight 6s ease forwards;
     animation-delay: 33s;
