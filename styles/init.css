@@ -1,0 +1,348 @@
+@import url('https://fonts.googleapis.com/css2?family=Bona+Nova:ital,wght@0,400;0,700;1,400&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,100..900;1,100..900&family=Bona+Nova:ital,wght@0,400;0,700;1,400&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+:root{
+    --headline: Bona Nova; 
+    --paargraph: Bitter;
+
+    --mia-card-bg: #EBCDB7;
+    --ilias-card-bg: #D2E2EC;
+}
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    background-color: #f0f0f0;
+    scroll-behavior: smooth;
+    display: flex;
+    flex-direction: column;
+}
+
+.variable-box{
+    margin: 0 50px;
+    
+}
+
+
+
+/* --появление текста сверху------------ */
+h1{
+    font-family: var(--headline), bold;
+    font-size: 72px;
+    line-height: 60px;
+    text-align: center;
+    margin-top: 60px;
+    transform: translateY(-80px);
+    
+    opacity: 0;
+    transform: translateY(-100px) scale(0.95);
+    filter: blur(10px);
+    
+    animation: cinematicReveal 1.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+
+/* --анимация появления текста */
+@keyframes cinematicReveal {
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+    }
+}
+
+/* -------карточка Мии---------------------------------- */
+.mia-card-body{
+    background-color: var(--mia-card-bg);
+    animation: fadeIn 2s ease forwards;
+    opacity: 0;
+    animation-delay: 3s;
+}
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
+.card-mia{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    /* gap: 28px; */
+    /* margin: 5px 0; */
+    /* padding: 5px 0; */
+
+    
+}
+
+.text-card-r{
+    width: 30%;
+    /* margin: 45px 45px 0 0; */
+    margin-top: 50px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    text-align: right;
+
+    opacity: 0;
+    transform: translateX(100%);
+    animation: textslider 1.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    animation-delay: 4.2s;
+}
+@keyframes textslider{
+    to {
+        opacity: 1;
+        transform: translateX(0);
+        filter: blur(0);
+    }
+}
+
+.h-m{
+    font-family: var(--headline), normal;
+    /* font-weight: bold; */
+    text-transform: uppercase;
+    font-size: 45px;
+    line-height: 40px;
+    /* text-align: right; */
+}
+.paragraph{
+    font-family: var(--paargraph), normal;
+    font-size: 15px;
+    /* line-height: 30px; */
+}
+/* Левая колонка */
+.gallery-mia{
+    position: relative;
+    width: 480px;
+    height: 348px;
+    overflow: hidden;
+}
+
+/* Все фото */
+.i{
+    position: absolute;
+    width: 250px;
+    height: 262px;
+    object-fit: cover;
+    margin-top: 55px;
+
+    opacity: 0;
+    transform: translateX(-120%);
+}
+.i-last{
+    position: absolute;
+    width: 250px;
+    height: 318px;
+    object-fit: cover;
+
+    opacity: 0;
+    transform: translateX(-120%);
+}
+/* 1 фото */
+.gallery-mia img:nth-child(1){
+    animation: slidePhoto 6s ease forwards;
+    animation-delay: 4s;
+}
+
+/* 2 фото */
+.gallery-mia img:nth-child(2){
+    animation: slidePhoto 6s ease forwards;
+    animation-delay: 10s;
+}
+
+/* 3 фото */
+.gallery-mia img:nth-child(3){
+    animation: finalPhoto 6s ease forwards;
+    animation-delay: 16s;
+}
+
+/* Первые 2 фото */
+@keyframes slidePhoto {
+
+    0%{
+        opacity: 0;
+        transform: translateX(-120%);
+    }
+
+    15%{
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+    75%{
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+    100%{
+        opacity: 0;
+        transform: translateX(0);
+    }
+}
+
+/* Последнее фото */
+@keyframes finalPhoto {
+
+    0%{
+        opacity: 0;
+        transform: translateX(-120%);
+    }
+
+    20%{
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+    100%{
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+/* ----карточка-Ильяс-------------------------------------------------- */
+.ilias-card-body{
+    margin: 0;
+    padding: 0;
+    background-color: var(--ilias-card-bg);
+    animation: fadeIn 1.6s ease forwards;
+    opacity: 0;
+    animation-delay: 20s;
+}
+
+.card-ilias{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 28px;
+    /* margin: 5px 0; */
+    /* padding: 5px 0; */
+
+    
+}
+
+.text-card-l{
+    width: 30%;
+    /* margin: 45px 45px 0 0; */
+    margin-top: 50px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    text-align: left;
+
+    opacity: 0;
+    transform: translateX(100%);
+    animation: textslider 1.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    animation-delay: 4.2s;
+}
+.h-i{
+    font-family: var(--headline), normal;
+    /* font-weight: bold; */
+    text-transform: uppercase;
+    font-size: 40px;
+    line-height: 40px;
+}
+
+/* Правая колонка */
+.gallery-ilias{
+    position: relative;
+    width: 480px;
+    height: 348px;
+    overflow: hidden;
+}
+
+/* Все фото */
+
+.gallery-ilias .a{
+    position: absolute;
+
+    width: 250px;
+    height: 250px;
+
+    object-fit: cover;
+
+    margin-top: 55px;
+
+    opacity: 0;
+    transform: translateX(120%);
+}
+
+.gallery-ilias .a-last{
+    position: absolute;
+
+    width: 296px;
+    height: 286px;
+
+    object-fit: cover;
+
+    opacity: 0;
+    transform: translateX(120%);
+}
+
+/* 1 фото */
+
+.gallery-ilias img:nth-child(1){
+    animation: slidePhotoRight 6s ease forwards;
+    animation-delay: 21s;
+}
+
+/* 2 фото */
+
+.gallery-ilias img:nth-child(2){
+    animation: slidePhotoRight 6s ease forwards;
+    animation-delay: 27s;
+}
+
+/* 3 фото */
+
+.gallery-ilias img:nth-child(3){
+    animation: finalPhotoRight 6s ease forwards;
+    animation-delay: 33s;
+}
+
+/* Первые 2 фото */
+
+@keyframes slidePhotoRight {
+
+    0%{
+        opacity: 0;
+        transform: translateX(120%);
+    }
+
+    15%{
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+    75%{
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+    100%{
+        opacity: 0;
+        transform: translateX(0);
+    }
+}
+
+/* Последнее фото */
+
+@keyframes finalPhotoRight {
+
+    0%{
+        opacity: 0;
+        transform: translateX(120%);
+    }
+
+    20%{
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+    100%{
+        opacity: 1;
+        transform: translateX(0);
+    }
+}

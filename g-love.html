@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Лендинг Мии и Ильяса | Киноафиша</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #f0f0f0; /* Светло-серый фон */
+            --frame-color: #ffffff; /* Белые рамки фото */
+            --ticket-blue: #023c72; /* Синий цвет билета */
+            --ornament-brown: #a68b7c; /* Коричневый орнамент */
+            --text-black: #000000;
+            --heart-red: #ff3366;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Space Mono', monospace; /* Моноширинный шрифт */
+            background-color: var(--bg-color);
+            color: var(--text-black);
+            overflow-x: hidden;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+
+        /* Центрирование и ограничение ширины лендинга */
+        .page-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            max-width: 480px; /* Ширина мобильного телефона */
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* Заголовки */
+        h1, h2, h3, h4 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        /* Пейджер текста (маленькие подписи) */
+        .page-text {
+            font-size: 14px;
+            margin: 10px 0;
+            text-align: center;
+        }
+
+        /* Polaroid-рамки */
+        .polaroid {
+            width: 90%;
+            background-color: var(--frame-color);
+            padding: 10px 10px 40px 10px; /* Нижний отступ для "полароида" */
+            border: 1px solid #ddd;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            margin: 30px auto;
+            position: relative;
+        }
+
+        .polaroid img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Смещение и наклон полароидов (как в дизайне) */
+        .miya-pic { transform: rotate(-3deg); }
+        .hands-pic { transform: rotate(2deg); width: 80%; }
+        .ilyas-pic { transform: rotate(-2deg); width: 80%; margin-top: -100px;} /* Смещение вверх */
+        .proposal-pic { transform: rotate(-3deg); }
+        .black-white-pic { border: 1px solid #888; padding: 2px; box-shadow: none;}
+        .uzatu-pic { margin-bottom: 0px; box-shadow: none; padding-bottom: 20px; }
+
+        /* Элементы с мазками фона (как в дизайне) */
+        .love-section-background {
+            background-image: linear-gradient(135deg, rgba(255, 102, 102, 0.2) 25%, transparent 25%),
+                              linear-gradient(225deg, rgba(255, 102, 102, 0.2) 25%, transparent 25%);
+            background-size: 40px 40px;
+            padding: 20px 0;
+            width: 100%;
+        }
+
+        /* Казахский орнамент */
+        .kazakh-ornament {
+            width: 120px;
+            height: auto;
+            margin: 20px 0;
+            opacity: 0.8;
+            color: var(--ornament-brown);
+        }
+
+        /* Билет */
+        .ticket-wrapper {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            margin: 40px 0;
+        }
+
+        .ticket {
+            width: 320px;
+            background-color: var(--ticket-blue);
+            color: #ffffff;
+            padding: 30px;
+            border-radius: 15px;
+            position: relative;
+            text-align: left;
+            border: 2px dashed #457b9d;
+        }
+        
+        /* Перфорация (точки) по бокам */
+        .ticket::before, .ticket::after {
+            content: "";
+            position: absolute;
+            width: 40px; height: 40px;
+            background: var(--bg-color);
+            border-radius: 50%;
+            top: 50%; transform: translateY(-50%);
+        }
+        .ticket::before { left: -25px; }
+        .ticket::after { right: -25px; }
+
+        .ticket h4 { text-align: left; font-size: 28px; margin-bottom: 10px; }
+        .ticket p { font-size: 16px; margin: 5px 0; font-weight: bold; }
+        .ticket hr { border: 1px dashed rgba(255, 255, 255, 0.3); margin: 15px 0; }
+
+        /* QR-код заглушка */
+        .qr-placeholder {
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.1);
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            border: 1px solid white;
+        }
+
+        /* Опрос RSVP */
+        .poll-section {
+            width: 100%;
+            max-width: 380px;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .poll-section h1 { font-size: 28px; margin-bottom: 30px; }
+        .poll-section .question { font-size: 16px; margin-bottom: 20px; }
+
+        .form-options {
+            text-align: left;
+            padding-left: 50px;
+            margin-bottom: 30px;
+        }
+
+        .form-options label {
+            display: block;
+            font-size: 14px;
+            margin-bottom: 15px;
+            cursor: pointer;
+        }
+
+        .form-options input[type="radio"] {
+            margin-right: 10px;
+            accent-color: var(--text-black);
+        }
+
+        .btn-submit {
+            padding: 12px 30px;
+            background-color: var(--text-black);
+            color: #ffffff;
+            border: none;
+            cursor: pointer;
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 2px;
+            font-size: 16px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="page-wrapper">
+
+        <h1 style="font-size: 30px;">Однажды они</h1>
+        
+        <div class="polaroid miya-pic">
+            <img src="https://via.placeholder.com/400" alt="Мия">
+            <div class="page-text">МИЯ</div>
+            <div class="page-text">Умная, красивая и невероятно талантливая...</div>
+        </div>
+
+        <div class="polaroid hands-pic" style="box-shadow: none;">
+            <img src="https://via.placeholder.com/500x200" alt="Касание рук">
+        </div>
+
+        <div class="polaroid ilyas-pic">
+            <img src="https://via.placeholder.com/400" alt="Ильяс">
+        </div>
+
+        <h1 style="margin: 40px 0;">Встретились</h1>
+
+        <div class="love-section-background">
+            <div style="transform: rotate(3deg); text-align: center; margin: 30px 0;">
+                <p style="font-size: 24px;">И...</p>
+                <h1 style="font-size: 32px; color: var(--heart-red);">полюбили<br>друг<br>друга</h1>
+            </div>
+
+            <div class="polaroid proposal-pic">
+                <img src="https://via.placeholder.com/350x350" alt="Предложение">
+            </div>
+
+            <h1 style="font-size: 36px;">УРАА</h1>
+        </div>
+
+        <p class="page-text" style="margin-top: 40px;">ТЕПЕРЬ</p>
+        <h1 style="font-size: 32px;">Самая сладкая парочка</h1>
+
+        <div class="polaroid black-white-pic" style="width: 80%; background: none;">
+            <img src="https://via.placeholder.com/400x500" alt="Мия и Ильяс ч/б">
+        </div>
+        <p class="page-text" style="font-size: 24px;">МИЯ & ИЛЬЯС</p>
+
+        <h1 style="font-size: 32px; margin-top: 60px;">Приглашают<br>ВАС</h1>
+
+        <div class="polaroid uzatu-pic">
+            <img src="https://via.placeholder.com/300x500" alt="Мия в традиционном платье">
+        </div>
+
+        <svg class="kazakh-ornament" viewBox="0 0 100 100" fill="currentColor">
+            <path d="M50,0 C65,10 70,25 70,40 C70,55 60,65 50,70 C40,65 30,55 30,40 C30,25 35,10 50,0 Z M50,10 C45,20 40,30 40,40 C40,50 45,60 50,60 C55,60 60,50 60,40 C60,30 55,20 50,10 Z M50,80 L50,100 M40,90 L60,90 M30,85 L40,80 M70,85 L60,80"/>
+        </svg>
+
+        <h1 style="font-size: 32px;">НА УЗАТУ</h1>
+
+        <div class="ticket-wrapper">
+            <div class="ticket">
+                <h4>БИЛЕТ</h4>
+                <hr>
+                <p>ДАТА: <span style="font-size: 20px;">12 / 08</span></p>
+                <p>ВРЕМЯ: <span style="font-size: 20px;">18:00</span></p>
+                <p>МЕСТО:</p>
+                <p style="font-size: 18px;">"БАКЫТ ОРТАЛЫГЫ"</p>
+                
+                <div class="qr-placeholder">
+                    <img src="https://via.placeholder.com/60?text=QR" alt="QR" style="width: 100%; opacity: 0.5;">
+                </div>
+            </div>
+        </div>
+
+        <div class="poll-section">
+            <p class="page-text">Опрос</p>
+            <h1>Опрос</h1>
+            <p class="question">Вы придете?</p>
+
+            <form class="form-options">
+                <label><input type="radio" name="rsvp" value="yes"> Приду!</label>
+                <label><input type="radio" name="rsvp" value="no"> Не смогу</label>
+                <label><input type="radio" name="rsvp" value="maybe"> Приду с опозданием</label>
+            </form>
+
+            <button class="btn-submit">ОТПРАВИТЬ</button>
+        </div>
+
+    </div>
+
+</body>
+</html>

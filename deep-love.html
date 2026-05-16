@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>Love Story · КИНОПРЕМЬЕРА</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #3A2119;  /* ночь кинотеатра */
+            font-family: system-ui, 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
+            color: #D2E2EC;
+            line-height: 1.4;
+            scroll-behavior: smooth;
+        }
+
+        /* плёночное зерно + мерцание */
+        .film-grain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 999;
+            opacity: 0.08;
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48ZmlsdGVyIGlkPSJmIj48ZmVUdXJidWxlbmNlIHR5cGU9ImZyYWN0YWxOb2lzZSIgYmFzZUZyZXF1ZW5jeT0iLjciIG51bU9jdGF2ZXM9IjMiLz48L2ZpbHRlcj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWx0ZXI9InVybCgjZikiIG9wYWNpdHk9IjAuNCIvPjwvc3ZnPg==');
+            background-repeat: repeat;
+            mix-blend-mode: overlay;
+            animation: grainShift 8s steps(2) infinite;
+        }
+
+        @keyframes grainShift {
+            0% { transform: translate(0,0); opacity: 0.06; }
+            100% { transform: translate(2%, 1%); opacity: 0.12; }
+        }
+
+        /* проекторное мерцание на некоторых блоках */
+        .flicker-soft {
+            animation: flickerBg 6s infinite ease;
+        }
+
+        @keyframes flickerBg {
+            0% { opacity: 1; }
+            95% { opacity: 1; }
+            96% { opacity: 0.94; }
+            97% { opacity: 1; }
+            100% { opacity: 1; }
+        }
+
+        /* общий контейнер mobile-first (макс ширина 480px, но центрируется) */
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* типовые секции */
+        section {
+            padding: 60px 0 40px;
+            border-bottom: 1px solid rgba(235, 205, 183, 0.2);
+        }
+
+        .section-last {
+            border-bottom: none;
+        }
+
+        /* заголовки в стиле кинотитров */
+        .movie-title {
+            font-size: 2.2rem;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+            text-transform: uppercase;
+            color: #EBCDB7;
+            text-shadow: 0 0 5px rgba(121, 163, 195, 0.5);
+        }
+
+        .subhead {
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: #79A3C3;
+            margin-bottom: 1rem;
+        }
+
+        /* анимации появления */
+        .reveal-block {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s cubic-bezier(0.2, 0.9, 0.4, 1.1), transform 0.7s ease;
+        }
+
+        .reveal-block.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* intro экран – титры */
+        .intro {
+            min-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: radial-gradient(circle at 30% 20%, #2b1912, #3A2119);
+            border-bottom: none;
+            padding: 20px 0;
+        }
+
+        .film-title {
+            font-size: 2.6rem;
+            font-weight: 800;
+            color: #EBCDB7;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            animation: titleReveal 1.8s forwards;
+            filter: blur(8px);
+            opacity: 0;
+            transform: scale(0.96);
+        }
+
+        @keyframes titleReveal {
+            0% { filter: blur(12px); opacity: 0; transform: scale(0.94);}
+            100% { filter: blur(0); opacity: 1; transform: scale(1);}
+        }
+
+        .premiere-date {
+            margin-top: 24px;
+            font-size: 1.2rem;
+            letter-spacing: 4px;
+            font-weight: 300;
+            border-top: 1px solid #957662;
+            display: inline-block;
+            padding-top: 12px;
+            animation: fadeInUp 1.2s 0.4s forwards;
+            opacity: 0;
+        }
+
+        .tagline {
+            margin-top: 32px;
+            font-style: italic;
+            color: #D2E2EC;
+            font-size: 0.9rem;
+            animation: fadeInUp 1.2s 0.8s forwards;
+            opacity: 0;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px);}
+            to { opacity: 1; transform: translateY(0);}
+        }
+
+        /* трейлер (субтитры) */
+        .trailer-block {
+            background: linear-gradient(135deg, #79A3C3 0%, #D2E2EC 100%);
+            color: #1e2a2f;
+            border-radius: 32px;
+            padding: 40px 24px;
+            text-align: center;
+            box-shadow: 0 20px 30px -10px rgba(0,0,0,0.3);
+        }
+        .subtitle-line {
+            font-size: 1.2rem;
+            margin: 16px 0;
+            font-weight: 500;
+            opacity: 0;
+            transform: translateY(15px);
+            transition: all 0.5s;
+        }
+        .subtitle-line.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* карточки героев */
+        .hero-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            margin-top: 30px;
+        }
+        .hero-card {
+            background: rgba(210, 226, 236, 0.08);
+            backdrop-filter: blur(4px);
+            border: 1px solid #957662;
+            border-radius: 28px;
+            padding: 24px 20px;
+            text-align: center;
+            transition: transform 0.3s ease;
+            box-shadow: 0 8px 14px rgba(0,0,0,0.3);
+        }
+        .hero-name {
+            font-size: 1.9rem;
+            font-weight: 700;
+            color: #EBCDB7;
+        }
+        .hero-role {
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #79A3C3;
+        }
+
+        /* билет/приглашение */
+        .ticket {
+            background: #EBCDB7;
+            color: #3A2119;
+            border-radius: 32px;
+            padding: 24px;
+            box-shadow: 0 12px 28px rgba(0,0,0,0.4);
+            position: relative;
+            overflow: hidden;
+        }
+        .ticket::before {
+            content: "🎬";
+            font-size: 60px;
+            opacity: 0.1;
+            position: absolute;
+            bottom: -10px;
+            right: 0px;
+            transform: rotate(-15deg);
+        }
+        .ticket-row {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px dashed #957662;
+            padding: 12px 0;
+        }
+        .ticket-label {
+            font-weight: 600;
+            color: #5e3a2b;
+        }
+
+        /* табы карт */
+        .map-tabs {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 20px;
+            justify-content: center;
+        }
+        .tab-btn {
+            background: none;
+            border: 1px solid #957662;
+            padding: 8px 20px;
+            border-radius: 60px;
+            font-weight: 600;
+            color: #D2E2EC;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .tab-btn.active {
+            background: #957662;
+            color: #3A2119;
+            border-color: #EBCDB7;
+        }
+        .map-container {
+            width: 100%;
+            height: 260px;
+            border-radius: 28px;
+            overflow: hidden;
+            border: 2px solid #957662;
+        }
+        .map-embed {
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+        .map-hide {
+            display: none;
+        }
+
+        /* форма */
+        .booking-form {
+            background: #1f1310;
+            border-radius: 36px;
+            padding: 28px 20px;
+            border: 1px solid #957662;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 14px 16px;
+            background: #2c1c17;
+            border: 1px solid #957662;
+            border-radius: 60px;
+            font-size: 1rem;
+            color: #EBCDB7;
+            outline: none;
+            transition: 0.2s;
+        }
+        textarea {
+            border-radius: 24px;
+            resize: vertical;
+        }
+        input:focus, select:focus, textarea:focus {
+            border-color: #79A3C3;
+            box-shadow: 0 0 0 2px rgba(121,163,195,0.3);
+        }
+        button {
+            background: #EBCDB7;
+            border: none;
+            width: 100%;
+            padding: 14px;
+            border-radius: 60px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            color: #3A2119;
+            cursor: pointer;
+            transition: 0.2s;
+            margin-top: 10px;
+        }
+        button:hover {
+            background: #957662;
+            color: #EBCDB7;
+            transform: scale(0.98);
+        }
+        .form-message {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            background: #2c4126;
+            padding: 12px;
+            border-radius: 40px;
+            color: #EBCDB7;
+        }
+
+        /* outro */
+        .outro {
+            text-align: center;
+            padding: 70px 0 90px;
+            background: radial-gradient(ellipse at top, #2e1f19, #3A2119);
+        }
+        .outro-quote {
+            font-size: 1.4rem;
+            font-family: 'Georgia', serif;
+            font-style: italic;
+            color: #EBCDB7;
+        }
+
+        /* адаптив > 480px (мягкий) */
+        @media (min-width: 481px) {
+            .container {
+                max-width: 560px;
+            }
+            .hero-grid {
+                flex-direction: row;
+                justify-content: center;
+            }
+            .hero-card {
+                flex: 1;
+            }
+            .movie-title {
+                font-size: 2.8rem;
+            }
+        }
+        footer {
+            text-align: center;
+            font-size: 0.7rem;
+            padding: 20px 0;
+            opacity: 0.6;
+        }
+    </style>
+</head>
+<body>
+<div class="film-grain"></div>
+
+<!-- INTRO - титры -->
+<section class="intro">
+    <div class="container" style="text-align: center;">
+        <div class="film-title">LOVE STORY: <span id="namesDynamic">Мия & Ильяс</span></div>
+        <div class="premiere-date">ПРЕМЬЕРА · xx  month 2026</div>
+        <div class="tagline">«История, которую стоит увидеть вживую»</div>
+    </div>
+</section>
+
+<!-- ТРЕЙЛЕР ИСТОРИИ -->
+<section>
+    <div class="container">
+        <div class="trailer-block">
+            <div class="subtitle-line reveal-block" style="transition-delay: 0.1s;"> ТРЕЙЛЕР</div>
+            <div class="subtitle-line reveal-block" style="transition-delay: 0.3s;">Там, где случайные встречи пишут сценарии...</div>
+            <div class="subtitle-line reveal-block" style="transition-delay: 0.5s;">Она не ждала чуда. Он искал билет в один конец.</div>
+            <div class="subtitle-line reveal-block" style="transition-delay: 0.7s;">«Снимаем кино про нас?» — спросил он. 🎬</div>
+        </div>
+    </div>
+</section>
+
+<!-- ГЕРОИ ФИЛЬМА -->
+<section>
+    <div class="container">
+        <div class="subhead" style="text-align: center;">ГЛАВНЫЕ ГЕРОИ</div>
+        <div class="hero-grid">
+            <div class="hero-card reveal-block">
+                <div class="hero-name">Мия</div>
+                <div class="hero-role">Та, кто зажгла свет</div>
+            </div>
+            <div class="hero-card reveal-block">
+                <div class="hero-name">Ильяс</div>
+                <div class="hero-role">Тот, кто купил билеты</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- БИЛЕТ / ПРИГЛАШЕНИЕ -->
+<section>
+    <div class="container">
+        <div class="subhead" style="text-align: center;">ПРИГЛАСИТЕЛЬНЫЙ БИЛЕТ</div>
+        <div class="ticket reveal-block">
+            <div class="ticket-row"><span class="ticket-label">ДАТА ПРЕМЬЕРЫ</span><span>14 февраля 2026</span></div>
+            <div class="ticket-row"><span class="ticket-label">СБОР ГОСТЕЙ</span><span>18:30 / НАЧАЛО 19:00</span></div>
+            <div class="ticket-row"><span class="ticket-label">ЛОКАЦИЯ</span><span>КИНОЛОФТ «ИЛЛЮЗИЯ»</span></div>
+            <div class="ticket-row"><span class="ticket-label">DRESS CODE</span><span>HOLYWOOD GLAM / РОМАНТИКА</span></div>
+            <div class="ticket-row"><span class="ticket-label">ВХОД</span><span>Билет = ваша улыбка</span></div>
+        </div>
+    </div>
+</section>
+
+<!-- ЛОКАЦИЯ + КАРТЫ GOOGLE & 2GIS -->
+<section>
+    <div class="container">
+        <div class="subhead" style="text-align: center;">КАК ДОБРАТЬСЯ?</div>
+        <div class="map-tabs">
+            <button class="tab-btn active" data-map="google">Google Maps</button>
+            <button class="tab-btn" data-map="dgis">2GIS</button>
+        </div>
+        <div class="reveal-block">
+            <div id="googleMap" class="map-container">
+                <iframe class="map-embed" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2245.628830882657!2d37.61862307685128!3d55.75157897308468!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46b54a5a7f4b8b5b%3A0x8b9a6b5b5b5b5b5b!2z0JrRgNCw0YHQvdCw0Y8g0L_Qu9C-0YnQsNC00Yw!5e0!3m2!1sru!2sru!4v1712000000000!5m2!1sru!2sru" loading="lazy"></iframe>
+            </div>
+            <div id="dgisMap" class="map-container map-hide">
+                <iframe class="map-embed" src="https://map.2gis.com/?#!/geo/70030076167465541/state/center/37.618423,55.751244/zoom/16" loading="lazy"></iframe>
+            </div>
+        </div>
+        <p style="font-size: 0.75rem; margin-top: 14px; text-align: center;">📍 Москва, ул. Киносцен 12, стр.1 (рядом м. Кинотеатральная)</p>
+    </div>
+</section>
+
+<!-- БРОНИРОВАНИЕ + ФОРМА + ОТПРАВКА В ТЕЛЕГРАМ -->
+<section>
+    <div class="container">
+        <div class="subhead" style="text-align: center;">ЗАБРОНИРОВАТЬ МЕСТО</div>
+        <div class="booking-form reveal-block">
+            <form id="bookingForm">
+                <div class="form-group">
+                    <input type="text" id="fullname" placeholder="ФИО (как в паспорте)" required>
+                </div>
+                <div class="form-group">
+                    <input type="number" id="guests" placeholder="Количество гостей" min="1" max="10" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" id="contact" placeholder="Telegram / телефон" required>
+                </div>
+                <div class="form-group">
+                    <textarea rows="2" id="comment" placeholder="Комментарий (пожелания / аллергии / ...)"></textarea>
+                </div>
+                <button type="submit">ЗАБРОНИРОВАТЬ БИЛЕТ В ИСТОРИЮ 🎟️</button>
+                <div id="formFeedback" class="form-message" style="display: none;"></div>
+            </form>
+        </div>
+    </div>
+</section>
+
+<!-- OUTRO / финальные титры -->
+<section class="section-last">
+    <div class="outro">
+        <div class="container">
+            <div class="outro-quote reveal-block">✨ «Конец трейлера. Начало вашей истории.» ✨</div>
+            <div style="margin-top: 24px; font-size: 0.8rem;">До встречи в кадре этой любви.</div>
+        </div>
+    </div>
+</section>
+<footer>🎬 LOVE STORY CINEMA · билеты только по предварительной записи</footer>
+
+<script>
+    // ========== ПОСЛЕДОВАТЕЛЬНОЕ ПОЯВЛЕНИЕ ==========
+    const revealElements = document.querySelectorAll('.reveal-block');
+    function checkReveal() {
+        for(let el of revealElements) {
+            const rect = el.getBoundingClientRect();
+            const windowHeight = window.innerHeight;
+            if(rect.top < windowHeight - 80) {
+                el.classList.add('revealed');
+            }
+        }
+        // для субтитров в трейлере (особые строки)
+        document.querySelectorAll('.subtitle-line').forEach(line => {
+            const rect = line.getBoundingClientRect();
+            if(rect.top < window.innerHeight - 60) line.classList.add('revealed');
+        });
+    }
+    window.addEventListener('scroll', checkReveal);
+    window.addEventListener('load', checkReveal);
+    // дополнительно запустим через 200мс для надёжности
+    setTimeout(checkReveal, 200);
+
+    // ========== ТАБЫ КАРТ (Google / 2GIS) ==========
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    const googleDiv = document.getElementById('googleMap');
+    const dgisDiv = document.getElementById('dgisMap');
+
+    function switchMap(activeMap) {
+        if(activeMap === 'google') {
+            googleDiv.classList.remove('map-hide');
+            dgisDiv.classList.add('map-hide');
+            tabBtns[0].classList.add('active');
+            tabBtns[1].classList.remove('active');
+        } else {
+            googleDiv.classList.add('map-hide');
+            dgisDiv.classList.remove('map-hide');
+            tabBtns[1].classList.add('active');
+            tabBtns[0].classList.remove('active');
+        }
+    }
+    tabBtns[0].addEventListener('click', () => switchMap('google'));
+    tabBtns[1].addEventListener('click', () => switchMap('dgis'));
+
+    // ========== TELEGRAM БОТ ОТПРАВКА ==========
+    // ⬇️⬇️⬇️ ЗАМЕНИ НА СВОИ ДАННЫЕ (ТОКЕН И ЧАТ АЙДИ) ⬇️⬇️⬇️
+    const TELEGRAM_TOKEN = 'ТВОЙ_ТОКЕН_СЮДА';   // пример: '1234567890:ABCdefGHIJKLMNOPqrStUvWXyz'
+    const TELEGRAM_CHAT_ID = 'ТВОЙ_CHAT_ID_СЮДА'; // пример: '987654321'
+
+    const form = document.getElementById('bookingForm');
+    const feedbackDiv = document.getElementById('formFeedback');
+
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const fullname = document.getElementById('fullname').value.trim();
+        const guests = document.getElementById('guests').value.trim();
+        const contact = document.getElementById('contact').value.trim();
+        const comment = document.getElementById('comment').value.trim();
+
+        if(!fullname || !guests || !contact) {
+            feedbackDiv.style.display = 'block';
+            feedbackDiv.style.backgroundColor = '#591c1c';
+            feedbackDiv.innerHTML = '❌ Пожалуйста, заполните ФИО, количество гостей и контакт.';
+            return;
+        }
+
+        // блокируем кнопку на время отправки
+        const submitBtn = form.querySelector('button');
+        const originalText = submitBtn.innerText;
+        submitBtn.disabled = true;
+        submitBtn.innerText = 'Отправка билета...';
+        feedbackDiv.style.display = 'block';
+        feedbackDiv.innerHTML = '🎞️ Резервируем место в зале...';
+
+        // собираем текст для телеграм
+        let messageText = `🎬 НОВАЯ БРОНЬ НА ПРЕМЬЕРУ 🎬\n`;
+        messageText += `👤 Имя: ${fullname}\n`;
+        messageText += `👥 Гостей: ${guests}\n`;
+        messageText += `📞 Контакт: ${contact}\n`;
+        if(comment) messageText += `💬 Комментарий: ${comment}\n`;
+        messageText += `🕯️ Дата события: 14 февраля 2026`;
+
+        // Если токен или чат айди не настроены — показать демо-режим
+        if(TELEGRAM_TOKEN === 'ТВОЙ_ТОКЕН_СЮДА' || TELEGRAM_CHAT_ID === 'ТВОЙ_CHAT_ID_СЮДА') {
+            console.warn('Telegram бот не настроен: замените токен и chat id в скрипте');
+            // имитируем успешную отправку для теста (чтоб форма работала локально)
+            setTimeout(() => {
+                submitBtn.disabled = false;
+                submitBtn.innerText = originalText;
+                feedbackDiv.style.backgroundColor = '#2c4126';
+                feedbackDiv.innerHTML = '🎟️✨ Спасибо, мы ждём вас! ✨🎟️<br><span style="font-size:0.85rem;">«Ваш билет в историю забронирован. Ждём вас в кинозале жизни ❤️»</span>';
+                form.reset();
+                setTimeout(() => {
+                    feedbackDiv.style.display = 'none';
+                }, 7000);
+            }, 800);
+            return;
+        }
+
+        // реальная отправка в телеграм через fetch (CORS может быть, но обычно работает)
+        const botUrl = `https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`;
+
+        try {
+            const response = await fetch(botUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    chat_id: TELEGRAM_CHAT_ID,
+                    text: messageText,
+                    parse_mode: 'HTML'
+                })
+            });
+            const data = await response.json();
+            if(data.ok) {
+                // успех — показываем киношное "спасибо"
+                feedbackDiv.style.backgroundColor = '#2c4126';
+                feedbackDiv.innerHTML = '🎟️✨ Спасибо, мы ждём вас! ✨🎟️<br><span style="font-size:0.85rem;">«Ваш билет в историю забронирован. Ждём вас в кинозале жизни ❤️»</span>';
+                form.reset();
+                setTimeout(() => {
+                    feedbackDiv.style.display = 'none';
+                }, 8000);
+            } else {
+                throw new Error(data.description || 'Ошибка отправки');
+            }
+        } catch (err) {
+            console.error(err);
+            feedbackDiv.style.backgroundColor = '#591c1c';
+            feedbackDiv.innerHTML = '⚠️ Ошибка при бронировании. Попробуйте позже или напишите организаторам напрямую.';
+        } finally {
+            submitBtn.disabled = false;
+            submitBtn.innerText = originalText;
+            setTimeout(() => {
+                if(feedbackDiv.innerText.includes('Спасибо') === false) {
+                    // скроем ошибку через время
+                    setTimeout(() => {
+                        if(feedbackDiv.style.display !== 'none') feedbackDiv.style.display = 'none';
+                    }, 5000);
+                }
+            }, 3000);
+        }
+    });
+
+    // имитация эффекта "билета печатается" лёгкий флип
+    const ticketEl = document.querySelector('.ticket');
+    if(ticketEl) {
+        ticketEl.style.transition = 'transform 0.4s ease, opacity 0.5s';
+        ticketEl.style.opacity = '0';
+        ticketEl.style.transform = 'rotateX(15deg)';
+        setTimeout(() => {
+            ticketEl.style.opacity = '1';
+            ticketEl.style.transform = 'rotateX(0deg)';
+        }, 300);
+    }
+</script>
+</body>
+</html>
