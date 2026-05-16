@@ -74,7 +74,7 @@ h1{
     display: flex;
     flex-direction: row;
     justify-content: center;
-    /* gap: 28px; */
+    gap: 28px;
     /* margin: 5px 0; */
     /* padding: 5px 0; */
 
@@ -108,7 +108,7 @@ h1{
     font-family: var(--headline), normal;
     /* font-weight: bold; */
     text-transform: uppercase;
-    font-size: 45px;
+    font-size: 42px;
     line-height: 40px;
     /* text-align: right; */
 }
@@ -245,7 +245,7 @@ h1{
     font-family: var(--headline), normal;
     /* font-weight: bold; */
     text-transform: uppercase;
-    font-size: 40px;
+    font-size: 37px;
     line-height: 40px;
 }
 
