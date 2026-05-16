@@ -12,6 +12,10 @@
     margin: 0;
     padding: 0;
 }
+html, body {
+    overflow-x: hidden;
+    max-width: 100%;
+}
 
 body{
     background-color: #f0f0f0;
@@ -21,7 +25,7 @@ body{
 }
 
 .variable-box{
-    margin: 0 50px;
+    margin: 0 20px;
     
 }
 
@@ -350,9 +354,9 @@ h1{
 
 /* -------------------------------------------- */
 /* ----------Адаптив------ */
-@media (max-width: 480px) {
+@media (max-width: 768px) {
     .variable-box{
-        margin: 0 20px;
+        margin: 0 50px;
     }
 
 }
