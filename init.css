@@ -586,25 +586,86 @@ h2{
     background-image: url("assets/images/place-icone.svg");
 }
 /* ----карта--------- */
-.details-title-map{
-    font-family: var(--paargraph); 
-    text-transform: capitalize; 
-    font-weight: 400; 
-    font-size: 65px; 
-    /* line-height: 40px;  */
-    text-align: center; 
-    margin: 100px 0 50px 0; 
-}
-.map-container{
-    width: 100%;
-    height: auto;
+/* ---------- Секция ---------- */
+
+.map-section{
+    padding: 40px 20px 100px;
+
     display: flex;
-    justify-content: center;
-    margin: 10px 0 100px 0;
-    border-radius: 23px;
+    flex-direction: column;
+    align-items: center;
 }
 
+/* ---------- Заголовок ---------- */
 
+.details-title-map{
+    font-family: var(--paargraph);
+
+    font-weight: 400;
+    font-size: 65px;
+
+    text-align: center;
+
+    margin-bottom: 50px;
+}
+
+/* ---------- Кнопки ---------- */
+
+.map-buttons{
+    display: flex;
+    gap: 10px;
+
+    margin-bottom: 10px;
+}
+
+.map-btn{
+    width: 150px;
+    height: 45px;
+
+    border: none;
+    border-radius: 50px;
+
+    background-color: #d4d4d4;
+
+    font-family: var(--solo-text);
+    font-size: 20px;
+
+    cursor: pointer;
+
+    transition: 0.3s ease;
+}
+
+.map-btn:hover{
+    background-color: #c5c5c5;
+}
+.map-btn.active{
+    background-color: #828282;
+}
+/* ---------- Карта ---------- */
+
+.map-container{
+    width: 350px;
+    height: 230px;
+
+    overflow: hidden;
+
+    border-radius: 8px;
+
+    background-color: #d4d4d4;
+
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+}
+
+.map-container iframe{
+    width: 100%;
+    height: 100%;
+
+    border: none;
+
+    display: block;
+
+    pointer-events: none;
+}
 /* -------------------------------------------- */
 /* ----------Адаптив------ */
 /* ну на всякий */
