@@ -1,9 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Bona+Nova:ital,wght@0,400;0,700;1,400&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,100..900;1,100..900&family=Bona+Nova:ital,wght@0,400;0,700;1,400&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,100..900;1,100..900&family=Bona+Nova:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
 
 :root{
     --headline: Bona Nova; 
     --paargraph: Bitter;
+    --solo-text: Cormorant Garamond;
+
 
     --mia-card-bg: #EBCDB7;
     --ilias-card-bg: #D2E2EC;
@@ -389,6 +393,36 @@ h1{
         font-size: 80%;
     } */
 /* --------------------------- */
+.blue-paper{
+    position: relative;
+
+    background: #D2E2EC;
+    min-height: 400px;
+
+    overflow: visible;
+    z-index: 1;
+}
+
+/* рваный край */
+.blue-paper::after{
+    content: "";
+    opacity: 1;
+
+    position: absolute;
+    left: 0;
+    bottom: -22px;
+
+    width: 100%;
+    height: 33px;
+
+    background: url(assets/images/torn-paper.svg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    
+
+    transform: rotate(-1deg);
+}
+
 h2{
     text-align: center;
     font-family: var(--headline);
@@ -397,7 +431,179 @@ h2{
 .solo-text{
     margin: 100px 0;
     font-weight: 100;
+    font-family: var(--solo-text);
+    font-size: 50px;
 }
+
+.hands{
+    width: 100%;
+    height: auto;
+    margin: 0 0 50px 0;
+    position: relative;
+    top: -22px;
+}
+.photo-frame{
+    width: 100%;
+    height: auto;
+    margin: 50px 0 0 0;
+}
+/* -------приглашение-------------- */
+.invitation{
+    background-color: #9878638f;
+    padding: 50px 20px;
+    margin: 100px 0 50px 0;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+
+    border: 35px solid transparent;
+
+    border-image-source: url("assets/images/ramka-uzor.svg");
+    border-image-slice: 29;
+    border-image-repeat: stretch;
+
+    border-radius: 5px;
+}
+
+.invitation-text{
+    font-family: Cormorant Garamond;
+    font-weight: 200;
+    text-transform: uppercase;
+    font-size: 36px;
+    line-height: 40px;
+    text-align: center;
+}
+
+.photo-poster{
+    width: 100%;
+    height: auto;
+    margin: 50px 0;
+}
+
+.invitation-ornament{
+    position: relative;
+
+    width: 100%;
+    min-height: 400px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    overflow: hidden;
+}
+
+.ornament{
+    position: absolute;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: contain;
+
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.invitation-text-act{
+    max-width: 300px;
+    position: relative;
+    z-index: 2;
+
+    font-family: Cormorant Garamond;
+    font-weight: 200;
+    text-transform: uppercase;
+    text-align: center;
+    font-size: 45px;
+    line-height: 62px;
+}
+/* ----детали--------- */
+.details-title{ 
+    font-family: var(--solo-text); 
+    text-transform: capitalize; 
+    font-weight: 100; 
+    font-size: 65px; 
+    line-height: 40px; 
+    text-align: center; 
+    margin: 50px 0 ; 
+} 
+.detail{ 
+    font-family: var(--solo-text); 
+    font-size: 35px; 
+    line-height: 30px; 
+    text-align: left; 
+    display: flex; 
+    flex-direction: column; 
+    margin: 80px 0; 
+    gap: 50px; 
+}
+
+.detail{
+    list-style: none;
+    padding: 0;
+}
+
+.detail li{
+    position: relative;
+    padding-left: 100px;
+    min-height: 50px;
+    display: flex;
+    align-items: center;
+}
+
+.detail-date::before,
+.detail-time::before,
+.detail-location::before{
+    content: "";
+
+    position: absolute;
+    left: 0;
+    /* top: 50%; */
+    top: 0;
+    transform: none;
+
+    width: 65px;
+    height: 70px;
+
+    /* transform: translateY(-50%); */
+
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.detail-date::before{
+    background-image: url("assets/images/date-icone.svg");
+}
+
+.detail-time::before{
+    background-image: url("assets/images/watch-icone.svg");
+}
+
+.detail-location::before{
+    background-image: url("assets/images/place-icone.svg");
+}
+/* ----карта--------- */
+.details-title-map{
+    font-family: var(--paargraph); 
+    text-transform: capitalize; 
+    font-weight: 400; 
+    font-size: 65px; 
+    /* line-height: 40px;  */
+    text-align: center; 
+    margin: 100px 0 50px 0; 
+}
+.map-container{
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    margin: 10px 0 100px 0;
+    border-radius: 23px;
+}
+
 
 /* -------------------------------------------- */
 /* ----------Адаптив------ */
@@ -429,7 +635,17 @@ h2{
         font-size: 95%;
     }
 
-    
+    .invitation{
+        padding: 85px 30px;
+        border: 25px solid transparent;
+        border-image-source: url("assets/images/ramka-uzor.svg");
+        border-image-slice: 28;
+    }
+
+    .invitation-text-act{
+        font-size: 273%;
+        line-height: 62px;
+    }
 }
 
 
@@ -487,7 +703,29 @@ h2{
 
     .solo-text{
         margin: 150px 0;
-        font-size: 30px;
+        font-size: 60px;
+    }
+
+    .invitation{
+        padding: 100px 30px;
+        border: 40px solid transparent;
+        border-image-source: url("assets/images/ramka-uzor.svg");
+        border-image-slice: 28;
+    }
+
+    .invitation-text-act{
+        font-size: 65px;
+        line-height: 62px;
+    }
+
+    .detail{ 
+        gap: 70px;
+    }
+    .detail-date::before,
+    .detail-time::before,
+    .detail-location::before{
+        width: 80px;
+        height: 57px;
     }
 }
 
