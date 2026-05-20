@@ -666,6 +666,166 @@ h2{
 
     pointer-events: none;
 }
+/* ---------- Секция ---------- */
+
+.booking-section{
+    padding: 60px 20px 100px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* ---------- Заголовок ---------- */
+
+.booking-title{
+    font-family: var(--paargraph);
+
+    font-size: 65px;
+    font-weight: 400;
+
+    margin-bottom: 50px;
+}
+
+/* ---------- Форма ---------- */
+
+.booking-form{
+    width: 100%;
+    max-width: 350px;
+
+    display: flex;
+    flex-direction: column;
+}
+
+/* ---------- Label ---------- */
+
+.booking-label{
+    font-family: var(--solo-text);
+
+    font-size: 28px;
+
+    margin-bottom: 12px;
+}
+
+/* ---------- Input ---------- */
+
+.booking-input{
+    /* width: 100%; */
+    height: 55px;
+
+    border-radius: 50px;
+    border: 1px solid #000;
+
+    background: transparent;
+
+    padding: 0 25px;
+
+    font-size: 22px;
+    font-family: var(--solo-text);
+
+    outline: none;
+
+    margin-bottom: 35px;
+}
+
+/* ---------- Radio ---------- */
+
+.radio-group{
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+/* скрываем стандартный radio */
+
+.radio-option input{
+    display: none;
+}
+
+.radio-option{
+    display: flex;
+    align-items: center;
+    gap: 14px;
+
+    cursor: pointer;
+}
+
+/* кастомный radio */
+
+.custom-radio{
+    width: 38px;
+    height: 38px;
+
+    border: 1px solid #000;
+    border-radius: 50%;
+
+    position: relative;
+
+    transition: 0.3s ease;
+}
+
+/* точка внутри */
+
+.radio-option input:checked + .custom-radio::after{
+    content: "";
+
+    width: 18px;
+    height: 18px;
+
+    background: #000;
+
+    border-radius: 50%;
+
+    position: absolute;
+
+    top: 50%;
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+}
+
+.radio-text{
+    font-family: var(--solo-text);
+
+    font-size: 24px;
+}
+
+/* ---------- Кнопка ---------- */
+
+.booking-btn{
+    margin-top: 40px;
+
+    height: 55px;
+
+    border: none;
+    border-radius: 50px;
+
+    background: #d4d4d4;
+
+    font-family: var(--solo-text);
+    font-size: 22px;
+
+    cursor: pointer;
+
+    transition: 0.3s ease;
+}
+
+.booking-btn:hover{
+    background: #c3c3c3;
+}
+
+/* ---------- Success ---------- */
+
+.success-message{
+    display: none;
+
+    margin-top: 25px;
+
+    text-align: center;
+
+    font-family: var(--solo-text);
+    font-size: 20px;
+}
 /* -------------------------------------------- */
 /* ----------Адаптив------ */
 /* ну на всякий */

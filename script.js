@@ -37,3 +37,67 @@ function setActiveButton(button){
 
     button.classList.add("active");
 }
+
+/* ---------- TG BOT ---------- */
+
+const TOKEN = "СЮДА_ТОКЕН_БОТА";
+const CHAT_ID = "СЮДА_CHAT_ID";
+
+/* ---------- Form ---------- */
+
+const bookingForm = document.getElementById("bookingForm");
+const successMessage = document.getElementById("successMessage");
+
+bookingForm.addEventListener("submit", async function(e){
+
+    e.preventDefault();
+
+    const guestName =
+        document.getElementById("guestName").value;
+
+    const attendance =
+        document.querySelector(
+            'input[name="attendance"]:checked'
+        ).value;
+
+    /* ---------- Сообщение ---------- */
+
+    const text =
+`✨ Новая бронь
+
+👤 Имя: ${guestName}
+
+📍 Ответ: ${attendance}`;
+
+    /* ---------- Отправка ---------- */
+
+    const url =
+`https://api.telegram.org/bot${TOKEN}/sendMessage`;
+
+    try{
+
+        await fetch(url, {
+            method: "POST",
+
+            headers: {
+                "Content-Type": "application/json"
+            },
+
+            body: JSON.stringify({
+                chat_id: CHAT_ID,
+                text: text
+            })
+        });
+
+        successMessage.style.display = "block";
+
+        bookingForm.reset();
+
+    }catch(error){
+
+        alert("Ошибка отправки");
+
+        console.error(error);
+    }
+
+});

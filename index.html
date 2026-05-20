@@ -118,6 +118,77 @@
 
         </section>
     </div>
+    <section class="booking-section">
+
+        <h2 class="booking-title">Бронь</h2>
+
+        <form class="booking-form" id="bookingForm">
+
+            <!-- Имя -->
+
+            <label class="booking-label">
+                Имя гостя
+            </label>
+
+            <input
+                type="text"
+                id="guestName"
+                class="booking-input"
+                placeholder=""
+                required>
+
+            <!-- Варианты -->
+
+            <div class="radio-group">
+
+                <label class="radio-option">
+
+                    <input
+                        type="radio"
+                        name="attendance"
+                        value="Приеду"
+                        required>
+
+                    <span class="custom-radio"></span>
+
+                    <span class="radio-text">
+                        приеду
+                    </span>
+
+                </label>
+
+                <label class="radio-option">
+
+                    <input
+                        type="radio"
+                        name="attendance"
+                        value="Не смогу">
+
+                    <span class="custom-radio"></span>
+
+                    <span class="radio-text">
+                        не смогу
+                    </span>
+
+                </label>
+
+            </div>
+
+            <!-- Кнопка -->
+
+            <button type="submit" class="booking-btn">
+                Отправить
+            </button>
+
+            <!-- Сообщение -->
+
+            <p class="success-message" id="successMessage">
+                Спасибо ✨ Будем ждать вас
+            </p>
+
+        </form>
+
+    </section>
 
     <script src="script.js"></script>
 </body>
