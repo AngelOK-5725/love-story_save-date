@@ -6,9 +6,23 @@ let currentLanguage = "ru";
 
 function openInvitation(){
 
-    document
-        .getElementById("langSelect")
-        .classList.add("show");
+    const button =
+        document.getElementById("openBtn");
+
+    button.classList.add("hide");
+
+    sessionStorage.setItem(
+        "invitationOpened",
+        "true"
+    );
+
+    setTimeout(() => {
+
+        document
+            .getElementById("langSelect")
+            .classList.add("show");
+
+    }, 600);
 }
 
 /* ---------- CHOOSE LANGUAGE ---------- */
@@ -260,7 +274,6 @@ bookingForm.addEventListener(
 `✨ Новая бронь
 
 Имя: ${guestName}
-
 Ответ: ${attendance}`;
 
         const url =
@@ -283,5 +296,13 @@ bookingForm.addEventListener(
 
         alert("Ошибка отправки");
     }
+
+});
+
+window.addEventListener("beforeunload", () => {
+
+    sessionStorage.removeItem(
+        "invitationOpened"
+    );
 
 });

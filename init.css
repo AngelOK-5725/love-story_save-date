@@ -81,6 +81,7 @@ body{
     text-align: center;
 
     animation: introAppear 1.5s ease;
+    
 }
 
 @keyframes introAppear{
@@ -130,15 +131,28 @@ body{
 
     cursor: pointer;
 
-    transition: 0.3s ease;
+    transition:
+        opacity 0.6s ease,
+        transform 0.6s ease;
 }
 
 .open-btn:hover{
     transform: scale(1.03);
 }
 
+/* исчезновение */
+
+.open-btn.hide{
+
+    opacity: 0;
+
+    transform: scale(0.9);
+
+    pointer-events: none;
+}
+
 .lang-select{
-    margin-top: 25px;
+    margin-top: -50px;
 
     display: none;
     flex-direction: column;
@@ -151,15 +165,28 @@ body{
 }
 
 .lang-select button{
-    height: 52px;
+    height: 72px;
 
     border: none;
-    border-radius: 50px;
+    border-radius: 999px;
+
+    background: rgba(255,255,255,0.9);
 
     font-family: var(--solo-text);
-    font-size: 22px;
+    font-size: 26px;
+    letter-spacing: 1px;
 
     cursor: pointer;
+
+    transition:
+        transform 0.3s ease,
+        background 0.3s ease;
+}
+
+.lang-select button:hover{
+    transform: scale(1.03);
+
+    background: white;
 }
 
 /* ---------- MAIN SITE ---------- */
