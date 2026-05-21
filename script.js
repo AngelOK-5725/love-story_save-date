@@ -222,9 +222,9 @@ function setActiveButton(button){
 
 /* ---------- TG BOT ---------- */
 
-const TOKEN = "8691631729:AAG5ZIIi08-J5qdNhKLyL9PXrHaGH9EIbaM";
+const TOKEN = "ТОКЕН_БОТА";
 
-const CHAT_ID = "-5099349164";
+const CHAT_ID = "ID_ЧАТА";
 
 /* ---------- FORM ---------- */
 
