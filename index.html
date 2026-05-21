@@ -3,192 +3,228 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="assets/images/favicon-1.ico">
     <link rel="stylesheet" href="init.css">
     <title>Love-story_Mia&Ilias</title>
 </head>
 <body>
+    <div class="intro-screen" id="introScreen">
 
-    <h1>Однажды они</h1>
-    <div class="mia-card-body">
-        <div class="variable-box">
-            <div class="card-mia">
-                <div class="gallery-mia">
-                    <img class="i" src="assets/images/мия-1111 2.png" alt="Mia">
-                    <img class="i" src="assets/images/мия-111 12.png" alt="Mia">
-                    <img class="i-last" src="assets/images/big-post-m.png" alt="Mia">
-                </div>
-                <div class="text-card-r">
-                    <h2 class="h-m">мия</h2>
-                    <p class="paragraph">Опасно харизматична.</p>
-                    <p class="paragraph">Из тех людей, которые появляются в сюжете не случайно.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="ilias-card-body">
-        <div class="variable-box">
-            <div class="card-ilias">
-                <div class="text-card-l">
-                    <h2 class="h-i">ілияс</h2>
-                    <p class="paragraph">Такое ощущение, будто у него отдельный саундтрек.</p>
-                    <p class="paragraph">Пугающе хорош в том, что делает.</p>
-                </div>
-                <div class="gallery-ilias">
-                    <img class="a" src="assets/images/ilias-1.png" alt="Ilias">
-                    <img class="a" src="assets/images/ilias-11.png" alt="Ilias">
-                    <img class="a-last" src="assets/images/big-post-i.png" alt="Ilias">
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="variable-box">
-        <h2 class="solo-text">встретились</h2>
-    </div>
-    <div class="blue-paper">
-        <img src="assets/images/hands.png" alt="Руки" class="hands">
-        <div class="variable-box">
-            <h2 class="solo-text">и сказали друг другу “да”</h2>
-        </div>
-        <img src="assets/images/фото-рамка.png" alt="фото рамка" class="photo-frame">
-    </div>
-    <div class="variable-box">
-        <div class="invitation">
-            <p class="invitation-text">приглашаем вас стать свидетелями того, как начинается наша общая история</p>
-        </div>
-        <img src="assets/images/photo-poster.png" alt="постер" class="photo-poster">
-    </div>
-    <div class="variable-box">
-        <div class="invitation-ornament">
-            <img src="assets/images/ornament.svg" class="ornament">
-            <p class="invitation-text-act">Ждем на кыз узату</p>
-        </div>
-    </div>
+        <div class="intro-card">
 
-    <!-- Детали -->
-    <div class="variable-box">
-        <h2 class="details-title">Детали</h2>
-        <ul class="detail">
-            <li class="detail-date">Дата: 20 июля 2024 года</li>
-            <li class="detail-time">Время: 18:00</li>
-            <li class="detail-location">Место: Ресторан "Золотой Двор"</li>
-        </ul>
-    </div>
+            <p class="intro-subtitle">
+                wedding invitation
+            </p>
 
-    <!-- карта -->
-    <div class="variable-box">
-        <section class="map-section">
+            <h2 class="intro-title">
+                Mia & Ilias
+            </h2>
 
-            <h2 class="details-title-map">Карта</h2>
+            <button class="open-btn" onclick="openInvitation()">
+                открыть приглашение
+            </button>
 
-            <div class="map-buttons">
+            <div class="lang-select" id="langSelect">
 
-                <button 
-                    class="map-btn active"
-                    onclick="showGoogleMap(); setActiveButton(this)">
-
-                    Google карты
-
+                <button onclick="chooseLanguage('ru')">
+                    Русский
                 </button>
 
-                
-                <button 
-                    class="map-btn"
-                    onclick="show2GISMap(); setActiveButton(this)">
-
-                    2ГИС
-
+                <button onclick="chooseLanguage('kz')">
+                    Қазақша
                 </button>
 
             </div>
 
-            <a id="mapLink" href="#" target="_blank">
+        </div>
 
-                <div class="map-container">
+    </div>
 
-                    <iframe
-                        id="mapFrame"
-                        src=""
-                        allowfullscreen=""
-                        loading="lazy">
-                    </iframe>
+    <div id="mainContent" class="hidden-site">
+        <h1 data-lang="mainTitle">Однажды они</h1>
+        <div class="mia-card-body">
+            <div class="variable-box">
+                <div class="card-mia">
+                    <div class="gallery-mia">
+                        <img class="i" src="assets/images/мия-1111 2.png" alt="Mia">
+                        <img class="i" src="assets/images/мия-111 12.png" alt="Mia">
+                        <img class="i-last" src="assets/images/big-post-m.png" alt="Mia">
+                    </div>
+                    <div class="text-card-r">
+                        <h2 data-lang="mia" class="h-m">мия</h2>
+                        <p data-lang="miaDescription" class="paragraph">Опасно харизматична.</p>
+                        <p data-lang="miaDetail" class="paragraph">Из тех людей, которые появляются в сюжете не случайно.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="ilias-card-body">
+            <div class="variable-box">
+                <div class="card-ilias">
+                    <div class="text-card-l">
+                        <h2 data-lang="ilias" class="h-i">Ильяс</h2>
+                        <p data-lang="iliasDescription" class="paragraph">Такое ощущение, будто у него отдельный саундтрек.</p>
+                        <p data-lang="iliasDetail" class="paragraph">Пугающе хорош в том, что делает.</p>
+                    </div>
+                    <div class="gallery-ilias">
+                        <img class="a" src="assets/images/ilias-1.png" alt="Ilias">
+                        <img class="a" src="assets/images/ilias-11.png" alt="Ilias">
+                        <img class="a-last" src="assets/images/big-post-i.png" alt="Ilias">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="variable-box">
+            <h2 data-lang="met" class="solo-text">встретились</h2>
+        </div>
+        <div class="blue-paper">
+            <img src="assets/images/hands.png" alt="Руки" class="hands">
+            <div class="variable-box">
+                <h2 data-lang="saidYes" class="solo-text">и сказали друг другу “да”</h2>
+            </div>
+            <img src="assets/images/фото-рамка.png" alt="фото рамка" class="photo-frame">
+        </div>
+        <div class="variable-box">
+            <div class="invitation">
+                <p class="invitation-text">приглашаем вас стать свидетелями того, как начинается наша общая история</p>
+            </div>
+            <img src="assets/images/photo-poster.png" alt="постер" class="photo-poster">
+        </div>
+        <div class="variable-box">
+            <div class="invitation-ornament">
+                <img src="assets/images/ornament.svg" class="ornament">
+                <p data-lang="invitationTextAct" class="invitation-text-act">Ждем на кыз узату</p>
+            </div>
+        </div>
+
+        <!-- Детали -->
+        <div class="variable-box">
+            <h2 data-lang="detailsTitle" class="details-title">Детали</h2>
+            <ul class="detail">
+                <li data-lang="detailDate" class="detail-date">Дата: 20 июля 2024 года</li>
+                <li data-lang="detailTime" class="detail-time">Время: 18:00</li>
+                <li data-lang="detailLocation" class="detail-location">Место: Ресторан "Золотой Двор"</li>
+            </ul>
+        </div>
+
+        <!-- карта -->
+        <div class="variable-box">
+            <section class="map-section">
+
+                <h2 class="details-title-map">Карта</h2>
+
+                <div class="map-buttons">
+
+                    <button 
+                        class="map-btn active"
+                        onclick="showGoogleMap(); setActiveButton(this)">
+
+                        Google карты
+
+                    </button>
+
+                    
+                    <button 
+                        class="map-btn"
+                        onclick="show2GISMap(); setActiveButton(this)">
+
+                        2ГИС
+
+                    </button>
 
                 </div>
 
-            </a>
+                <a id="mapLink" href="#" target="_blank">
+
+                    <div class="map-container">
+
+                        <iframe
+                            id="mapFrame"
+                            src=""
+                            allowfullscreen=""
+                            loading="lazy">
+                        </iframe>
+
+                    </div>
+
+                </a>
+
+            </section>
+        </div>
+        <section class="booking-section">
+
+            <h2 class="booking-title">Бронь</h2>
+
+            <form class="booking-form" id="bookingForm">
+
+                <!-- Имя -->
+
+                <label data-lang="guestName" class="booking-label">
+                    Имя гостя
+                </label>
+
+                <input
+                    type="text"
+                    id="guestName"
+                    class="booking-input"
+                    data-placeholder="guestName"
+                    required>
+
+                <!-- Варианты -->
+
+                <div class="radio-group">
+
+                    <label class="radio-option">
+
+                        <input
+                            type="radio"
+                            name="attendance"
+                            value="Приеду"
+                            required>
+
+                        <span class="custom-radio"></span>
+
+                        <span data-lang="mayAttend" class="radio-text">
+                            приеду
+                        </span>
+
+                    </label>
+
+                    <label class="radio-option">
+
+                        <input
+                            type="radio"
+                            name="attendance"
+                            value="Не смогу">
+
+                        <span class="custom-radio"></span>
+
+                        <span data-lang="cannotAttend" class="radio-text">
+                            не смогу
+                        </span>
+
+                    </label>
+
+                </div>
+
+                <!-- Кнопка -->
+
+                <button type="submit" class="booking-btn">
+                    <span data-lang="submitBooking">
+                        Отправить
+                    </span>
+                </button>
+
+                <!-- Сообщение -->
+
+                <p data-lang="successMessage" class="success-message" id="successMessage">
+                    Спасибо ✨ Будем ждать вас
+                </p>
+
+            </form>
 
         </section>
     </div>
-    <section class="booking-section">
-
-        <h2 class="booking-title">Бронь</h2>
-
-        <form class="booking-form" id="bookingForm">
-
-            <!-- Имя -->
-
-            <label class="booking-label">
-                Имя гостя
-            </label>
-
-            <input
-                type="text"
-                id="guestName"
-                class="booking-input"
-                placeholder=""
-                required>
-
-            <!-- Варианты -->
-
-            <div class="radio-group">
-
-                <label class="radio-option">
-
-                    <input
-                        type="radio"
-                        name="attendance"
-                        value="Приеду"
-                        required>
-
-                    <span class="custom-radio"></span>
-
-                    <span class="radio-text">
-                        приеду
-                    </span>
-
-                </label>
-
-                <label class="radio-option">
-
-                    <input
-                        type="radio"
-                        name="attendance"
-                        value="Не смогу">
-
-                    <span class="custom-radio"></span>
-
-                    <span class="radio-text">
-                        не смогу
-                    </span>
-
-                </label>
-
-            </div>
-
-            <!-- Кнопка -->
-
-            <button type="submit" class="booking-btn">
-                Отправить
-            </button>
-
-            <!-- Сообщение -->
-
-            <p class="success-message" id="successMessage">
-                Спасибо ✨ Будем ждать вас
-            </p>
-
-        </form>
-
-    </section>
 
     <script src="script.js"></script>
 </body>

@@ -1,7 +1,182 @@
-const mapFrame = document.getElementById("mapFrame");
-const mapLink = document.getElementById("mapLink");
+/* ---------- CURRENT LANGUAGE ---------- */
 
-/* ---------- Google Maps ---------- */
+let currentLanguage = "ru";
+
+/* ---------- OPEN INVITATION ---------- */
+
+function openInvitation(){
+
+    document
+        .getElementById("langSelect")
+        .classList.add("show");
+}
+
+/* ---------- CHOOSE LANGUAGE ---------- */
+
+function chooseLanguage(lang){
+
+    currentLanguage = lang;
+
+    setLanguage(lang);
+
+    const intro =
+        document.getElementById("introScreen");
+
+    const site =
+        document.getElementById("mainContent");
+
+    intro.classList.add("hide");
+
+    site.classList.add("show");
+
+    document.body.style.overflow = "auto";
+}
+
+/* ---------- TRANSLATIONS ---------- */
+
+const translations = {
+
+    ru: {
+
+        mainTitle: "Однажды они",
+
+        mia: "Мия",
+        miaDescription: "Опасно харизматична.",
+        miaDetail: "Из тех людей, которые появляются в сюжете не случайно.",
+
+        ilias: "Ильяс",
+        iliasDescription: "Такое ощущение, будто у него отдельный саундтрек.",
+        iliasDetail: "Пугающе хорош в том, что делает.",
+
+        met: "встретились",
+
+        saidYes: "и сказали друг другу “да”",
+
+        invitationTextAct: "Ждем на кыз узату",
+
+        detailsTitle: "Детали",
+
+        detailDate: "Дата: 20 июля 2024 года",
+        detailTime: "Время: 18:00",
+        detailLocation: "Место: Ресторан \"Золотой Двор\"",
+
+        guestName: "Имя гостя",
+
+        mayAttend: "приеду",
+        cannotAttend: "не смогу",
+
+        submitBooking: "Отправить",
+
+        successMessage: "Спасибо ✨ Будем ждать вас"
+    },
+
+    kz: {
+
+        mainTitle: "Бір күні олар",
+
+        mia: "Мия",
+        miaDescription: "Қауіпті харизмалы.",
+        miaDetail: "Оқиғаға кездейсоқ келмейтін жандардың бірі.",
+
+        ilias: "Ілияс",
+        iliasDescription: "Оның өз саундтрегі бар сияқты.",
+        iliasDetail: "Ісінің нағыз шебері.",
+
+        met: "кездесті",
+
+        saidYes: "және бір-біріне “иә” деді",
+
+        invitationTextAct: "Қыз ұзату тойына шақырамыз",
+
+        detailsTitle: "Толығырақ",
+
+        detailDate: "Күні: 2024 жылғы 20 шілде",
+        detailTime: "Уақыты: 18:00",
+        detailLocation: "Орны: \"Золотой Двор\" мейрамханасы",
+
+        guestName: "Қонақтың аты",
+
+        mayAttend: "келемін",
+        cannotAttend: "келмеймін",
+
+        submitBooking: "Жіберу",
+
+        successMessage: "Рахмет ✨ Сіздерді күтеміз"
+    }
+
+};
+
+/* ---------- SET LANGUAGE ---------- */
+
+function setLanguage(lang){
+
+    document.documentElement.lang = lang;
+
+    localStorage.setItem("lang", lang);
+
+    /* ---------- TEXT ---------- */
+
+    const elements =
+        document.querySelectorAll("[data-lang]");
+
+    elements.forEach(element => {
+
+        const key =
+            element.getAttribute("data-lang");
+
+        if(translations[lang][key]){
+
+            element.textContent =
+                translations[lang][key];
+        }
+
+    });
+
+    /* ---------- PLACEHOLDERS ---------- */
+
+    const placeholders =
+        document.querySelectorAll("[data-placeholder]");
+
+    placeholders.forEach(input => {
+
+        const key =
+            input.getAttribute("data-placeholder");
+
+        if(translations[lang][key]){
+
+            input.placeholder =
+                translations[lang][key];
+        }
+
+    });
+
+}
+
+/* ---------- RESTORE LANGUAGE ---------- */
+
+window.addEventListener("load", () => {
+
+    const savedLang =
+        localStorage.getItem("lang");
+
+    if(savedLang){
+
+        currentLanguage = savedLang;
+
+        setLanguage(savedLang);
+    }
+
+});
+
+/* ---------- MAP ---------- */
+
+const mapFrame =
+    document.getElementById("mapFrame");
+
+const mapLink =
+    document.getElementById("mapLink");
+
+/* ---------- GOOGLE MAP ---------- */
 
 function showGoogleMap(){
 
@@ -23,16 +198,21 @@ function show2GISMap(){
     "https://2gis.kz/almaty/firm/70000001000000000";
 }
 
-/* ---------- Карта по умолчанию ---------- */
+/* ---------- DEFAULT MAP ---------- */
 
 showGoogleMap();
 
-const buttons = document.querySelectorAll(".map-btn");
+/* ---------- MAP BUTTONS ---------- */
+
+const buttons =
+    document.querySelectorAll(".map-btn");
 
 function setActiveButton(button){
 
     buttons.forEach(btn => {
+
         btn.classList.remove("active");
+
     });
 
     button.classList.add("active");
@@ -41,35 +221,49 @@ function setActiveButton(button){
 /* ---------- TG BOT ---------- */
 
 const TOKEN = "СЮДА_ТОКЕН_БОТА";
+
 const CHAT_ID = "СЮДА_CHAT_ID";
 
-/* ---------- Form ---------- */
+/* ---------- FORM ---------- */
 
-const bookingForm = document.getElementById("bookingForm");
-const successMessage = document.getElementById("successMessage");
+const bookingForm =
+    document.getElementById("bookingForm");
 
-bookingForm.addEventListener("submit", async function(e){
+const successMessage =
+    document.getElementById("successMessage");
+
+/* ---------- SUBMIT ---------- */
+
+bookingForm.addEventListener(
+    "submit",
+    async function(e){
 
     e.preventDefault();
 
     const guestName =
         document.getElementById("guestName").value;
 
-    const attendance =
+    const attendanceInput =
         document.querySelector(
             'input[name="attendance"]:checked'
-        ).value;
+        );
 
-    /* ---------- Сообщение ---------- */
+    const attendance =
+        attendanceInput
+        .nextElementSibling
+        .nextElementSibling
+        .textContent;
+
+    /* ---------- MESSAGE ---------- */
 
     const text =
 `✨ Новая бронь
 
-👤 Имя: ${guestName}
+Имя: ${guestName}
 
-📍 Ответ: ${attendance}`;
+Ответ: ${attendance}`;
 
-    /* ---------- Отправка ---------- */
+    /* ---------- SEND ---------- */
 
     const url =
 `https://api.telegram.org/bot${TOKEN}/sendMessage`;
@@ -77,6 +271,7 @@ bookingForm.addEventListener("submit", async function(e){
     try{
 
         await fetch(url, {
+
             method: "POST",
 
             headers: {
@@ -84,7 +279,9 @@ bookingForm.addEventListener("submit", async function(e){
             },
 
             body: JSON.stringify({
+
                 chat_id: CHAT_ID,
+
                 text: text
             })
         });
