@@ -52,6 +52,7 @@ const translations = {
 
         saidYes: "и сказали друг другу “да”",
 
+        invitationText: "приглашаем вас стать свидетелями того, как начинается наша общая история",
         invitationTextAct: "Ждем на кыз узату",
 
         detailsTitle: "Детали",
@@ -86,6 +87,7 @@ const translations = {
 
         saidYes: "және бір-біріне “иә” деді",
 
+        invitationText: "Бірге басталатын оқиғаның куәсі болуға шақырамыз",
         invitationTextAct: "Қыз ұзату тойына шақырамыз",
 
         detailsTitle: "Толығырақ",
@@ -220,9 +222,9 @@ function setActiveButton(button){
 
 /* ---------- TG BOT ---------- */
 
-const TOKEN = "СЮДА_ТОКЕН_БОТА";
+const TOKEN = "8691631729:AAG5ZIIi08-J5qdNhKLyL9PXrHaGH9EIbaM";
 
-const CHAT_ID = "СЮДА_CHAT_ID";
+const CHAT_ID = "-5099349164";
 
 /* ---------- FORM ---------- */
 
