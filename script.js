@@ -220,11 +220,6 @@ function setActiveButton(button){
     button.classList.add("active");
 }
 
-/* ---------- TG BOT ---------- */
-
-const TOKEN = "ТОКЕН_БОТА";
-
-const CHAT_ID = "ID_ЧАТА";
 
 /* ---------- FORM ---------- */
 
@@ -235,68 +230,58 @@ const successMessage =
     document.getElementById("successMessage");
 
 /* ---------- SUBMIT ---------- */
-
 bookingForm.addEventListener(
     "submit",
     async function(e){
 
     e.preventDefault();
 
-    const guestName =
-        document.getElementById("guestName").value;
+    try {
 
-    const attendanceInput =
-        document.querySelector(
-            'input[name="attendance"]:checked'
-        );
+        const guestName =
+            document.getElementById("guestName").value;
 
-    const attendance =
-        attendanceInput
-        .nextElementSibling
-        .nextElementSibling
-        .textContent;
+        const attendanceInput =
+            document.querySelector(
+                'input[name="attendance"]:checked'
+            );
 
-    /* ---------- MESSAGE ---------- */
+        if(!attendanceInput){
 
-    const text =
+            alert("Выберите вариант ответа");
+
+            return;
+        }
+
+        const attendance =
+            attendanceInput.value;
+
+        const text =
 `✨ Новая бронь
 
 Имя: ${guestName}
 
 Ответ: ${attendance}`;
 
-    /* ---------- SEND ---------- */
+        const url =
+        "https://script.google.com/macros/s/AKfycbxuwK2BjP3LLdEpbpn0jQY4wWxqGeVRC6rbO_j0uDf0eYLhu-2vOX7CM2nPXlZzFywSAA/exec";
 
-    const url =
-`https://api.telegram.org/bot${TOKEN}/sendMessage`;
-
-    try{
-
-        await fetch(url, {
-
+        const response = await fetch(url, {
             method: "POST",
-
-            headers: {
-                "Content-Type": "application/json"
-            },
-
-            body: JSON.stringify({
-
-                chat_id: CHAT_ID,
-
-                text: text
-            })
+            body: JSON.stringify({ text })
         });
+
+        console.log("response:", response);
 
         successMessage.style.display = "block";
 
         bookingForm.reset();
 
-    }catch(error){
+    } catch (error) {
+
+        console.error("FULL ERROR:", error);
 
         alert("Ошибка отправки");
-
-        console.error(error);
     }
 
 });
